@@ -11,10 +11,11 @@
   },
   "dependencies": {
     "@plasmohq/messaging": "^0.3.3",
-    "crypto-js": "^4.1.1",
+    "@radix-ui/react-tooltip": "^1.0.6",
     "plasmo": "0.74.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-icons": "^4.10.1"
   },
   "devDependencies": {
     "@plasmohq/prettier-plugin-sort-imports": "3.6.4",
@@ -29,12 +30,10 @@
     "typescript": "5.0.4"
   },
   "manifest": {
-    "host_permissions": [
-      "https://fanyi-api.baidu.com/"
-    ],
     "permissions": [
-      "clipboard",
-      "storage"
+      "unlimitedStorage",
+      "storage",
+      "tabs"
     ]
   }
 }

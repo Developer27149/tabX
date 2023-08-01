@@ -1,0 +1,1 @@
+export type TTab = chrome.tabs.Tab
