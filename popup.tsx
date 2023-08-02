@@ -1,31 +1,47 @@
-import "./style.css"
+import "./style.css";
+import "./styles/animation.css"
 
-import { useEffect, useState } from "react"
+import { useAtom } from "jotai"
+import { useEffect } from "react"
+import toast, { Toaster } from "react-hot-toast"
 
 import Container from "~components/Container"
 import Loading from "~components/Loading"
 import Menu from "~components/Menu"
 import Setting from "~components/Setting"
-import type { IAppState } from "~types/appState"
+import { appStateStore } from "~store"
+import { EShowMode } from "~types/appState"
+import { delayAsyncCallback } from "~utils/common"
+import { getSyncAppState, setSyncAppState } from "~utils/storage"
+import { queryTabs } from "~utils/tabs"
 
 function IndexPopup() {
-  const [state, setState] = useState<IAppState>()
-  const [isSetting, setIsSetting] = useState(false)
+  const [state, setState] = useAtom(appStateStore)
   useEffect(() => {
-    // init fetch data
     const init = async () => {
-      const tabs = await chrome.tabs.query({})
-      console.log(tabs)
-      setState({ tabs })
+      // get app state from storage
+      const [tabs, prevAppState] = await Promise.all([
+        delayAsyncCallback(queryTabs),
+        getSyncAppState()
+      ])
+      setState({ ...prevAppState, showMode: EShowMode.normal, tabs })
+      window._toast = toast
     }
     init()
   }, [])
-  if (state === undefined) return <Loading />
-  if (isSetting) return <Setting />
+
+  // sync app state to storage
+  useEffect(() => {
+    setSyncAppState(state)
+  }, [state])
+
+  if (state.showMode === EShowMode.loading) return <Loading />
+  if (state.showMode === EShowMode.setting) return <Setting />
   return (
     <div className="w-[800px] flex h-[400px]">
       <Menu />
       <Container />
+      <Toaster />
     </div>
   )
 }

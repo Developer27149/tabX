@@ -1,0 +1,5 @@
+.animation_icon-hover:hover {
+  transition: all 0.35s ease-in-out;
+  transform: rotate(15deg);
+  color: #2463eb;
+}

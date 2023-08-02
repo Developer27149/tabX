@@ -6,3 +6,10 @@ export enum ETabType {
   "audible" = "声音",
   "group" = "分组"
 }
+
+export type TTabType = keyof typeof ETabType
+
+export enum ETabMode {
+  "pagePreview",
+  "listView"
+}

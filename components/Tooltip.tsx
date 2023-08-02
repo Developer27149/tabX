@@ -3,12 +3,15 @@ import * as Tooltip from "@radix-ui/react-tooltip"
 interface IProps {
   children: React.ReactNode
   intro: React.ReactNode
+  onClick?: () => void
 }
-export default function ({ children, intro }: IProps) {
+export default function ({ children, intro, onClick }: IProps) {
   return (
     <Tooltip.Provider>
       <Tooltip.Root delayDuration={200}>
-        <Tooltip.Trigger asChild>{children}</Tooltip.Trigger>
+        <Tooltip.Trigger asChild onClick={onClick}>
+          {children}
+        </Tooltip.Trigger>
         <Tooltip.Portal>
           <Tooltip.Content
             sideOffset={5}
