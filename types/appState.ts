@@ -1,5 +1,5 @@
-import type { TTab } from "./browser";
-import type { TTabType } from "./common"
+import type { TTab } from "./browser"
+import type { ETabMode, TTabType } from "./common"
 
 export enum EShowMode {
   loading,
@@ -12,4 +12,6 @@ export interface IAppState {
   tabs: TTab[]
   showMode: EShowMode
   tabsType: TTabType
+  tabMode: ETabMode
+  searchQuery: string
 }

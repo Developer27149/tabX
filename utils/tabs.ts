@@ -1,3 +1,5 @@
+import { sendToBackground } from "@plasmohq/messaging"
+
 import type { TTab } from "~types/browser"
 
 // query all tabs
@@ -43,4 +45,16 @@ export const groupTabsByGroup = (tabs: chrome.tabs.Tab[]) => {
 // 将所有 tabs 按是否 audible 分组
 export const groupTabsByAudible = (tabs: chrome.tabs.Tab[]) => {
   return groupTabsByProperty(tabs, (tab) => tab.audible.toString())
+}
+
+// 打开选中的 tab
+export const openSelectedTabs = async (tab: TTab) => {
+  const body = {
+    id: tab.id,
+    windowId: tab.windowId
+  }
+  sendToBackground({
+    name: "openTab",
+    body
+  })
 }

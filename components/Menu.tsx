@@ -63,7 +63,7 @@ export default function Menu() {
             className={clsx(
               "cursor-pointer p-1 bg-blue-100 rounded-md text-[20px] hover:scale-105 transform transition-all",
               {
-                "bg-blue-700": appState.tabsType === id
+                "bg-blue-500": appState.tabsType === id
               }
             )}>
             {icon}

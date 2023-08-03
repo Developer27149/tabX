@@ -26,7 +26,7 @@ export const setSyncAppState = async (value: IAppState) => {
 export const getSyncAppState = async (): Promise<IAppState> => {
   try {
     const result = await getSyncStorage(EStorageKey.appState)
-    return result[EStorageKey.appState]
+    return result
   } catch (error) {
     errorMessage("Failed to load app state from storage")
   }

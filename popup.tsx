@@ -21,7 +21,7 @@ function IndexPopup() {
     const init = async () => {
       // get app state from storage
       const [tabs, prevAppState] = await Promise.all([
-        delayAsyncCallback(queryTabs),
+        delayAsyncCallback(queryTabs, 10),
         getSyncAppState()
       ])
       setState({ ...prevAppState, showMode: EShowMode.normal, tabs })
@@ -38,7 +38,7 @@ function IndexPopup() {
   if (state.showMode === EShowMode.loading) return <Loading />
   if (state.showMode === EShowMode.setting) return <Setting />
   return (
-    <div className="w-[800px] flex h-[400px]">
+    <div className="w-[800px] flex h-[500px]">
       <Menu />
       <Container />
       <Toaster />
