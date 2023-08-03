@@ -14,4 +14,5 @@ export interface IAppState {
   tabsType: TTabType
   tabMode: ETabMode
   searchQuery: string
+  language: string
 }

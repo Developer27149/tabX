@@ -58,3 +58,10 @@ export const openSelectedTabs = async (tab: TTab) => {
     body
   })
 }
+
+// 复制 tab 的 url
+export const copyTabUrl = async (tab: TTab, message: string) => {
+  const url = tab.url
+  await navigator.clipboard.writeText(url)
+  window._toast.success(message)
+}

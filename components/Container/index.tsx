@@ -53,7 +53,7 @@ export default function () {
   }
 
   return (
-    <div className="w-[756px] h-[500px] p-2 pb-16 relative">
+    <div className="w-[756px] h-[520px] p-2 pb-16 relative">
       <Header />
       {tabComponentMap[appState.tabsType]}
     </div>

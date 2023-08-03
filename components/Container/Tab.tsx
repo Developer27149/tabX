@@ -1,22 +1,30 @@
 import { useAtomValue } from "jotai"
+import { CgCopy } from "react-icons/cg"
 
 import Favicon from "~components/Favicon"
+import { getI18nByKey } from "~i18n"
 import { appStateStore } from "~store"
 import type { TTab } from "~types/browser"
 import { ETabMode } from "~types/common"
-import { openSelectedTabs } from "~utils/tabs"
+import { copyTabUrl, openSelectedTabs } from "~utils/tabs"
 
 interface IProps {
   tab: TTab
 }
 export default function ({ tab }: IProps) {
   const appState = useAtomValue(appStateStore)
+  const successMessage = getI18nByKey("copySuccess")
   if (appState.tabMode === ETabMode.listView) {
     return (
       <div className="flex gap-2 items-center p-1 rounded-sm bg-white hover:bg-blue-500 hover:text-white transition-all mr-4 group">
         <Favicon src={tab.favIconUrl} />
         <div className="truncate max-w-[620px]">{tab.title}</div>
         <div className="p-1 flex items-center gap-1 ml-auto">
+          <button
+            className="opacity-0 text-[15px]  group-hover:opacity-100"
+            onClick={() => copyTabUrl(tab, successMessage)}>
+            <CgCopy color="white" />
+          </button>
           <button
             className="opacity-0 group-hover:opacity-100"
             onClick={() => openSelectedTabs(tab)}>

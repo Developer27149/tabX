@@ -2,6 +2,7 @@ import clsx from "clsx"
 import { useAtom } from "jotai"
 import { TfiSearch } from "react-icons/tfi"
 
+import { getI18nByKey, i18n } from "~i18n"
 import { appStateStore } from "~store"
 import { ETabMode } from "~types/common"
 
@@ -18,7 +19,7 @@ export default function () {
       <div className="relative flex items-center">
         <input
           className="w-[120px] p-1 px-2 border border-gray-100 border-x-transparent border-t-transparent rounded-sm pr-8 focus:w-[200px] transition-all outline-none focus-visible:outline-none"
-          placeholder="search"
+          placeholder={getI18nByKey("search")}
           value={appState.searchQuery}
           onChange={(e) =>
             setAppState((prev) => ({ ...prev, searchQuery: e.target.value }))
