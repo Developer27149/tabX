@@ -1,33 +1,61 @@
-import type { IAppState } from "~types/appState"
+import { EArea, EI18nLanguage } from "~types/browser"
 
+import type { IAppState } from "~types/appState"
 import { errorMessage } from "./common"
+import { getI18nByKey } from "~i18n"
 
 export enum EStorageKey {
-  appState = "appState"
+  appState = "appState",
+  customTabs = "customTabs",
+  pagePreview = "pagePreview"
 }
 
-export const getSyncStorage = async (key: EStorageKey) => {
-  const result = await chrome.storage.sync.get(key)
-  return result[key]
+export const getFromStorage = async <T = any>(
+  key: EStorageKey,
+  area = "sync" as EArea,
+  defaultValue?: T
+) => {
+  const result = await chrome.storage[area].get(key)
+  return (result[key] as T) ?? defaultValue
 }
 
-export const setSyncStorage = async (key: EStorageKey, value: any) => {
-  await chrome.storage.sync.set({ [key]: value })
+export const saveToStorage = async (
+  key: EStorageKey,
+  value: any,
+  area = "sync" as EArea
+) => {
+  await chrome.storage[area].set({ [key]: value })
 }
 
-export const setSyncAppState = async (value: IAppState) => {
+export const setAppState = async (value: IAppState) => {
   try {
-    await setSyncStorage(EStorageKey.appState, value)
+    await saveToStorage(EStorageKey.appState, value)
   } catch (error) {
-    errorMessage("Failed to save app state to storage")
+    errorMessage(getI18nByKey("saveStateFailed"))
+    console.log(error)
   }
 }
 
-export const getSyncAppState = async (): Promise<IAppState> => {
+export const getAppState = async (): Promise<IAppState> => {
   try {
-    const result = await getSyncStorage(EStorageKey.appState)
-    return result
+    const result = await getFromStorage(EStorageKey.appState)
+    if (result["language"] === undefined) {
+      result["language"] = EI18nLanguage["zh-CN"]
+    }
+    console.log("result", result)
+    return result ?? {}
   } catch (error) {
-    errorMessage("Failed to load app state from storage")
+    errorMessage(getI18nByKey("getStateFailed"))
+    console.log(error)
+  }
+}
+
+export const getCustomTabs = async (): Promise<chrome.tabs.Tab[]> => {
+  try {
+    const tabs = await getFromStorage(EStorageKey["customTabs"], EArea.local)
+    return tabs
+  } catch (error) {
+    errorMessage(getI18nByKey("getStateFailed"))
+    console.log(error)
   }
 }

@@ -1,4 +1,4 @@
-import type { TTab } from "./browser"
+import type { EI18nLanguage, TTab } from "./browser"
 import type { ETabMode, TTabType } from "./common"
 
 export enum EShowMode {
@@ -9,10 +9,16 @@ export enum EShowMode {
 }
 
 export interface IAppState {
-  tabs: TTab[]
   showMode: EShowMode
   tabsType: TTabType
   tabMode: ETabMode
   searchQuery: string
-  language: string
+  language: EI18nLanguage
+}
+
+export interface ITabPreviewRecord {
+  [key: string]: {
+    dataUrl: string
+    timestamp: number
+  }
 }

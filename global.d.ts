@@ -1,6 +1,6 @@
 import type { toast } from "react-hot-toast"
 
-declare  global {
+declare global {
   interface Window {
     _toast: toast
   }

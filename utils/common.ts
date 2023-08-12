@@ -25,3 +25,11 @@ export const errorMessage = (msg: string) => {
 export const successMessage = (msg: string) => {
   window._toast.success(msg)
 }
+
+// get favicon from domain
+export const getFavicon = (u: string, size = 32 as string | number) => {
+  const url = new URL(chrome.runtime.getURL("/_favicon/"))
+  url.searchParams.set("pageUrl", u)
+  url.searchParams.set("size", size.toString())
+  return url.toString()
+}

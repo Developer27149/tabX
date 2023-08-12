@@ -13,7 +13,9 @@
     "@plasmohq/messaging": "^0.3.3",
     "@radix-ui/react-tooltip": "^1.0.6",
     "clsx": "^2.0.0",
+    "html2canvas": "^1.4.1",
     "jotai": "^2.2.3",
+    "lodash-es": "^4.17.21",
     "plasmo": "0.74.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -23,6 +25,7 @@
   "devDependencies": {
     "@plasmohq/prettier-plugin-sort-imports": "3.6.4",
     "@types/chrome": "0.0.237",
+    "@types/lodash-es": "^4.17.8",
     "@types/node": "20.2.4",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
@@ -36,7 +39,12 @@
     "permissions": [
       "unlimitedStorage",
       "storage",
-      "tabs"
+      "tabs",
+      "favicon",
+      "activeTab"
+    ],
+    "host_permissions": [
+      "<all_urls>"
     ]
   }
 }

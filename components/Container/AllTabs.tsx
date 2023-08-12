@@ -1,5 +1,4 @@
 import type { TTab } from "~types/browser"
-
 import Tab from "./Tab"
 
 interface IProps {

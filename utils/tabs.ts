@@ -1,6 +1,10 @@
-import { sendToBackground } from "@plasmohq/messaging"
+import { sendToBackground } from "@plasmohq/messaging";
 
-import type { TTab } from "~types/browser"
+
+
+import { EArea, type TTab } from "~types/browser"
+
+import { EStorageKey, getFromStorage } from "./storage"
 
 // query all tabs
 export const queryTabs = () => chrome.tabs.query({})
@@ -64,4 +68,12 @@ export const copyTabUrl = async (tab: TTab, message: string) => {
   const url = tab.url
   await navigator.clipboard.writeText(url)
   window._toast.success(message)
+}
+
+export const getPreviewRecord = () =>
+  getFromStorage(EStorageKey["pagePreview"], EArea.local, {})
+
+export async function getPagePreviewDataUrlByTabId(tabId: number) {
+  const record = await getPreviewRecord()
+  return record[tabId]["dataUrl"]
 }
