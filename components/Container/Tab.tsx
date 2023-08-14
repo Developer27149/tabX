@@ -1,17 +1,17 @@
+import { useAtomValue } from "jotai"
+import { useEffect, useState } from "react"
+import { CgCopy } from "react-icons/cg"
+
+import Favicon from "~components/Favicon"
+import { getI18nByKey } from "~i18n"
+import { appStateStore } from "~store"
+import type { TTab } from "~types/browser"
+import { ETabMode } from "~types/common"
 import {
   copyTabUrl,
   getPagePreviewDataUrlByTabId,
   openSelectedTabs
 } from "~utils/tabs"
-import { useEffect, useState } from "react"
-
-import { CgCopy } from "react-icons/cg"
-import { ETabMode } from "~types/common"
-import Favicon from "~components/Favicon"
-import type { TTab } from "~types/browser"
-import { appStateStore } from "~store"
-import { getI18nByKey } from "~i18n"
-import { useAtomValue } from "jotai"
 
 interface IProps {
   tab: TTab
@@ -94,7 +94,7 @@ export default function ({ tab }: IProps) {
         {previewDataUrl ? (
           <img src={previewDataUrl} className="w-full h-[120px]" />
         ) : (
-          <div className="flex justify-center items-center h-[120px]">
+          <div className="flex justify-center items-center h-[120px] text-gray-400">
             {failedMessage}
           </div>
         )}

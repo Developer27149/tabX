@@ -2,9 +2,15 @@ import { sendToBackground } from "@plasmohq/messaging";
 
 
 
-import { EArea, type TTab } from "~types/browser"
+import { EArea, type TTab } from "~types/browser";
 
-import { EStorageKey, getFromStorage } from "./storage"
+
+
+import { EStorageKey, getFromStorage } from "./storage";
+
+
+
+
 
 // query all tabs
 export const queryTabs = () => chrome.tabs.query({})
@@ -76,4 +82,9 @@ export const getPreviewRecord = () =>
 export async function getPagePreviewDataUrlByTabId(tabId: number) {
   const record = await getPreviewRecord()
   return record[tabId]["dataUrl"]
+}
+
+export const resolveDomainFromUrl = (url: string) => {
+  const { hostname } = new URL(url)
+  return hostname
 }
