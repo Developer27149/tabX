@@ -84,7 +84,7 @@ export async function getPagePreviewDataUrlByTabId(tabId: number) {
   return record[tabId]["dataUrl"]
 }
 
-export const resolveDomainFromUrl = (url: string) => {
-  const { hostname } = new URL(url)
-  return hostname
+export const resolveHostFromUrl = (url: string) => {
+  const { host } = new URL(url)
+  return host
 }
