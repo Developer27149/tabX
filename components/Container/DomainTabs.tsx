@@ -36,7 +36,7 @@ export default function ({ tabs }: IProps) {
               className={clsx(
                 "flex items-center gap-2 relative p-1 transition-all group",
                 {
-                  "bg-blue-100 rounded-sm": currentDomain === host
+                  "bg-blue-400 rounded-sm": currentDomain === host
                 }
               )}>
               <Favicon
@@ -45,7 +45,7 @@ export default function ({ tabs }: IProps) {
               />
               <span
                 className={clsx(
-                  "absolute -right-[1px] -top-[1px] rounded-full bg-blue-300 animate-ping opacity-0",
+                  "absolute -right-[1px] -top-[1px] rounded-full bg-blue-500 animate-ping opacity-0",
                   {
                     "opacity-100 w-1.5 h-1.5": currentDomain === host
                   }

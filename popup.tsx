@@ -1,19 +1,21 @@
-import "./style.css"
-import "./styles/animation.css"
+import "./style.css";
+import "./styles/animation.css";
 
-import { allTabsStore, appStateStore } from "~store"
-import { getAppState, setAppState } from "~utils/storage"
+
+
+import { useAtom } from "jotai";
+import { useEffect } from "react"
 import toast, { Toaster } from "react-hot-toast"
 
 import Container from "~components/Container"
-import { EShowMode } from "~types/appState"
 import Loading from "~components/Loading"
 import Menu from "~components/Menu"
 import Setting from "~components/Setting"
-import { delayAsyncCallback } from "~utils/common"
+import { allTabsStore, appStateStore } from "~store"
+import { EShowMode } from "~types/appState"
+import { delayAsyncCallback, disableContentMenu } from "~utils/common"
+import { getAppState, setAppState } from "~utils/storage"
 import { queryTabs } from "~utils/tabs"
-import { useAtom } from "jotai"
-import { useEffect } from "react"
 
 function IndexPopup() {
   const [state, setState] = useAtom(appStateStore)
@@ -30,6 +32,7 @@ function IndexPopup() {
       window._toast = toast
     }
     init()
+    // disableContentMenu()
   }, [])
 
   // sync app state to storage

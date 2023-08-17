@@ -13,6 +13,7 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
     }
     // console.log("dataUrl", dataUrl)
     // save it to the storage
+   try {
     const record = await getFromStorage<ITabPreviewRecord>(
       EStorageKey.pagePreview,
       EArea.local,
@@ -37,6 +38,8 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
       },
       EArea.local
     )
+   } catch (error) {
+   }
   })
   res.send({})
 }

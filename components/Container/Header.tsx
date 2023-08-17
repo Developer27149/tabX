@@ -15,10 +15,10 @@ export default function () {
     setAppState((prev) => ({ ...prev, tabMode: ETabMode.pagePreview }))
   }
   return (
-    <div className="left-0 right-0 top-0 m-1 rounded-sm box-border flex items-center justify-between sticky">
+    <div className="left-0 right-0 top-0 m-1 rounded-sm box-border flex items-center justify-between sticky pb-4">
       <div className="relative flex items-center">
         <input
-          className="w-[120px] p-1 px-2 border border-gray-100 border-x-transparent border-t-transparent rounded-sm pr-8 focus:w-[200px] transition-all outline-none focus-visible:outline-none"
+          className="w-[120px] p-1 px-2 border border-gray-100 border-x-transparent border-t-transparent rounded-sm pr-8 focus:w-[200px] transition-all outline-none focus-visible:outline-none focus-visible:border-b-blue-200"
           placeholder={getI18nByKey("search")}
           value={appState.searchQuery}
           onChange={(e) =>

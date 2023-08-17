@@ -1,4 +1,5 @@
 import type { PlasmoCSConfig } from "plasmo"
+
 import { sendToBackground } from "@plasmohq/messaging"
 
 export const config: PlasmoCSConfig = {
@@ -7,12 +8,14 @@ export const config: PlasmoCSConfig = {
 }
 
 const captureCurrentTab = () => {
-  if (document.visibilityState === "visible") {
-    // 当前标签页处于显式状态
-    sendToBackground({
-      name: "captureCurrentTab"
-    })
-  }
+  try {
+    if (document.visibilityState === "visible") {
+      // 当前标签页处于显式状态
+      sendToBackground({
+        name: "captureCurrentTab"
+      })
+    }
+  } catch (error) {}
 }
 
 // 加载完成后立即截图

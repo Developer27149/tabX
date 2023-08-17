@@ -88,3 +88,7 @@ export const resolveHostFromUrl = (url: string) => {
   const { host } = new URL(url)
   return host
 }
+
+export const reverseTabPinStatus = async (id: number, pinned: boolean) => {
+  await chrome.tabs.update(id, { pinned: !pinned })
+}

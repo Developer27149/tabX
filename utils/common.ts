@@ -33,3 +33,11 @@ export const getFavicon = (u: string, size = 32 as string | number) => {
   url.searchParams.set("size", size.toString())
   return url.toString()
 }
+
+
+// disable content menu
+export const disableContentMenu = () => {
+  document.addEventListener("contextmenu", (e) => {
+    e.preventDefault()
+  })
+}

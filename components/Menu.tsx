@@ -9,7 +9,7 @@ import { PiTwitterLogoThin } from "react-icons/pi"
 import { TbWorldWww } from "react-icons/tb"
 import { VscMultipleWindows } from "react-icons/vsc"
 
-
+import { getI18nByKey } from "~i18n"
 import { appStateStore } from "~store"
 import { ETabType, type TTabType } from "~types/common"
 
@@ -19,32 +19,32 @@ export default function Menu() {
   const [appState, setAppState] = useAtom(appStateStore)
   const groupType = [
     {
-      intro: ETabType.all,
+      intro: getI18nByKey("menuAll"),
       icon: <BsWindowSidebar />,
       id: "all"
     },
     {
-      intro: ETabType.domain,
+      intro: getI18nByKey("menuDomain"),
       icon: <TbWorldWww />,
       id: "domain"
     },
     {
-      intro: ETabType.windowId,
+      intro: getI18nByKey("menuWindow"),
       icon: <VscMultipleWindows />,
       id: "windowId"
     },
     {
-      intro: ETabType.audible,
+      intro: getI18nByKey("menuAudible"),
       icon: <AiOutlineAudio />,
       id: "audible"
     },
     {
-      intro: ETabType.status,
+      intro: getI18nByKey("menuStatus"),
       icon: <MdMultipleStop />,
       id: "status"
     },
     {
-      intro: ETabType.group,
+      intro: getI18nByKey("menuGroup"),
       icon: <HiOutlineRectangleGroup />,
       id: "group"
     }
