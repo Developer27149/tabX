@@ -9,3 +9,8 @@ export enum EArea {
   "sync" = "sync",
   "local" = "local"
 }
+
+export interface IWindowsData {
+  id: number
+  name: string
+}

@@ -12,8 +12,9 @@ import TabAction from "./TabAction"
 
 interface IProps {
   tab: TTab
+  styles?: React.CSSProperties
 }
-export default function ({ tab }: IProps) {
+export default function ({ tab, styles }: IProps) {
   const appState = useAtomValue(appStateStore)
   const [previewDataUrl, setPreviewDataUrl] = useState<string>("")
 
@@ -30,7 +31,9 @@ export default function ({ tab }: IProps) {
 
   if (appState.tabMode === ETabMode.listView) {
     return (
-      <div className="flex gap-2 items-center p-1 rounded-sm bg-white hover:bg-blue-500 hover:text-white transition-all mr-4 group">
+      <div
+        className="flex gap-2 items-center p-1 rounded-sm bg-white hover:bg-blue-500 hover:text-white transition-all mr-4 group"
+        style={styles}>
         <Favicon url={tab.url} />
         <div className="truncate max-w-[420px]">{tab.title}</div>
         <TabAction tab={tab} />

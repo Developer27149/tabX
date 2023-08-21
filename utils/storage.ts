@@ -1,13 +1,20 @@
-import { EArea, EI18nLanguage } from "~types/browser"
+import { getI18nByKey } from "~i18n";
+import type { IAppState } from "~types/appState";
+import { EArea, EI18nLanguage } from "~types/browser";
 
-import type { IAppState } from "~types/appState"
-import { errorMessage } from "./common"
-import { getI18nByKey } from "~i18n"
+
+
+import { errorMessage } from "./common";
+
+
+
+
 
 export enum EStorageKey {
   appState = "appState",
   customTabs = "customTabs",
-  pagePreview = "pagePreview"
+  pagePreview = "pagePreview",
+  windowsData = "windowsData"
 }
 
 export const getFromStorage = async <T = any>(
