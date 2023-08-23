@@ -13,4 +13,5 @@ export enum EArea {
 export interface IWindowsData {
   id: number
   name: string
+  isMaximized: boolean
 }

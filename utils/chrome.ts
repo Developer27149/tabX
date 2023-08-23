@@ -1,4 +1,4 @@
-import { EArea, type IWindowsData } from "~types/browser"
+import { EArea,type IWindowsData } from "~types/browser"
 
 import { EStorageKey, getFromStorage, saveToStorage } from "./storage"
 
@@ -17,7 +17,8 @@ export const initAllWindows = async () => {
     const { id } = win
     return {
       id,
-      name: windowCache.find((item) => item.id === id)?.name ?? "Window"
+      name: windowCache.find((item) => item.id === id)?.name ?? "Window",
+      isMaximized: true
     }
   })
   saveWindows(result)

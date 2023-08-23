@@ -1,10 +1,10 @@
 import clsx from "clsx"
 import { useAtom } from "jotai"
-import { type FC, useState } from "react"
+import { useState } from "react"
 import { BsMic, BsPin } from "react-icons/bs"
 import { BsMicMute } from "react-icons/bs"
 import { CgCopy } from "react-icons/cg"
-import { GrFormClose } from "react-icons/gr"
+import { IoIosCloseCircleOutline } from "react-icons/io"
 
 import { getI18nByKey } from "~i18n"
 import { allTabsStore } from "~store"
@@ -16,7 +16,7 @@ interface TabActionProps {
   isPreview?: boolean
 }
 
-const TabAction: FC<TabActionProps> = ({ tab, isPreview }) => {
+const TabAction: React.FC<TabActionProps> = ({ tab, isPreview }) => {
   const [, setTabs] = useAtom(allTabsStore)
   const onRemoveTab = (tab: TTab) => {
     chrome.tabs.remove(tab.id)
@@ -38,7 +38,7 @@ const TabAction: FC<TabActionProps> = ({ tab, isPreview }) => {
   return (
     <div
       className={clsx("p-1 flex items-center gap-2", {
-        "bg-white bg-opacity-0 group-hover:bg-opacity-100": isPreview,
+        "bg-gray-100 bg-opacity-0 group-hover:bg-opacity-100": isPreview,
         "ml-auto": !isPreview
       })}>
       <button
@@ -76,7 +76,7 @@ const TabAction: FC<TabActionProps> = ({ tab, isPreview }) => {
       <button
         className="opacity-0 text-[15px]  group-hover:opacity-100"
         onClick={() => onRemoveTab(tab)}>
-        <GrFormClose />
+        <IoIosCloseCircleOutline />
       </button>
     </div>
   )
