@@ -1,7 +1,7 @@
 import { useAtom } from "jotai"
 import { useEffect } from "react"
 
-import { allTabsStore, appStateStore } from "~store"
+import { allTabsStore, appStateStore, refreshTabsSignalStore } from "~store"
 import { queryTabs } from "~utils/tabs"
 
 import AllTabs from "./AllTabs"
@@ -13,6 +13,7 @@ import WindowTabs from "./WindowTabs"
 export default function () {
   const [appState] = useAtom(appStateStore)
   const [tabs, setTabs] = useAtom(allTabsStore)
+  const [signal] = useAtom(refreshTabsSignalStore)
 
   useEffect(() => {
     queryTabs().then((_tabs) => {
@@ -27,7 +28,6 @@ export default function () {
           )
         })
       })
-      console.log("new tabs:", newTabs)
       // newTabs order by keywordOption
       const newTabsOrder = newTabs.sort((a, b) => {
         // title is 3 score, url is 1 score
@@ -50,7 +50,7 @@ export default function () {
       })
       setTabs(newTabsOrder)
     })
-  }, [appState.searchQuery])
+  }, [appState.searchQuery, signal])
 
   const tabComponentMap = {
     all: <AllTabs tabs={tabs} />,

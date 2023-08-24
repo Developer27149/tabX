@@ -11,13 +11,14 @@ import { TbWorldWww } from "react-icons/tb"
 import { VscMultipleWindows } from "react-icons/vsc"
 
 import { getI18nByKey } from "~i18n"
-import { appStateStore } from "~store"
+import { appStateStore, refreshTabsSignalStore } from "~store"
 import { ETabType, type TTabType } from "~types/common"
 
 import Tooltip from "./Tooltip"
 
 export default function Menu() {
   const [appState, setAppState] = useAtom(appStateStore)
+  const [, setSignal] = useAtom(refreshTabsSignalStore)
   const groupType = [
     {
       intro: getI18nByKey("menuAll"),
@@ -73,7 +74,10 @@ export default function Menu() {
         </Tooltip>
       ))}
       <div className="mt-auto">
-        <IoIosRefresh className="text-[20px] mb-2 mx-auto opacity-60 hover:opacity-100 cursor-pointer transition-all" />
+        <IoIosRefresh
+          onClick={() => setSignal((prev) => !prev)}
+          className="text-[20px] mb-2 mx-auto opacity-60 hover:opacity-100 cursor-pointer transition-all"
+        />
         <a
           href="https://github.com/Developer27149"
           target="_blank"

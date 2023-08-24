@@ -12,3 +12,4 @@ export const appStateStore = atom<IAppState>({
 })
 
 export const allTabsStore = atom<TTab[]>([])
+export const refreshTabsSignalStore = atom(true)
