@@ -1,14 +1,13 @@
-import { useAtom } from "jotai";
-import { useEffect } from "react";
+import { useAtom } from "jotai"
+import { useEffect } from "react"
 
-
-
-import { allTabsStore, appStateStore } from "~store";
+import { allTabsStore, appStateStore } from "~store"
 import { queryTabs } from "~utils/tabs"
 
 import AllTabs from "./AllTabs"
 import DomainTabs from "./DomainTabs"
 import Header from "./Header"
+import StatusTab from "./StatusTab"
 import WindowTabs from "./WindowTabs"
 
 export default function () {
@@ -56,7 +55,9 @@ export default function () {
   const tabComponentMap = {
     all: <AllTabs tabs={tabs} />,
     domain: <DomainTabs tabs={tabs} />,
-    windowId: <WindowTabs tabs={tabs} />
+    windowId: <WindowTabs tabs={tabs} />,
+    audible: <AllTabs audible={true} tabs={tabs} />,
+    status: <StatusTab tabs={tabs} />
   }
 
   return (

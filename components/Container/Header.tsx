@@ -30,6 +30,9 @@ export default function () {
         </button>
       </div>
       <div className="flex gap-4">
+        {appState.tabsType === "audible" && (
+          <button className="text-blue-500">全部静音</button>
+        )}
         <button
           onClick={onSwitchTabListMode}
           className={clsx(

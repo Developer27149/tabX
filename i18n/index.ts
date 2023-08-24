@@ -17,7 +17,9 @@ export const i18n = {
     menuWindow: "窗口",
     menuAudible: "声音",
     menuGroup: "分组",
-    menuStatus: "状态"
+    menuStatus: "状态",
+    pinned: "已固定",
+    incognito: "隐身模式"
   },
   en: {
     search: "Search",
@@ -33,7 +35,9 @@ export const i18n = {
     menuWindow: "Window",
     menuAudible: "Audible",
     menuGroup: "Group",
-    menuStatus: "Status"
+    menuStatus: "Status",
+    pinned: "Pinned",
+    incognito: "Incognito"
   }
 }
 

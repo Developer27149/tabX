@@ -34,7 +34,11 @@ export default function ({ tab, styles }: IProps) {
       <div
         className="flex gap-2 items-center p-1 rounded-sm bg-white hover:bg-blue-500 hover:text-white transition-all mr-4 group"
         style={styles}>
-        <Favicon url={tab.url} />
+        <Favicon
+          url={tab.url}
+          styles={{ cursor: "pointer" }}
+          onClick={() => openSelectedTabs(tab)}
+        />
         <div className="truncate max-w-[420px]">{tab.title}</div>
         <TabAction tab={tab} />
       </div>
@@ -45,7 +49,11 @@ export default function ({ tab, styles }: IProps) {
     <div className="inline-block bg-white m-2 min-w-[340px] max-w-[340px] h-[160px] overflow-hidden border border-gray-100 rounded-md group relative">
       <div className="p-1 px-2 bg-gray-100 flex justify-between items-center">
         <a href={tab.url} target="_blank" className="flex items-center">
-          <Favicon url={tab.url} styles={{ width: "16px", height: "16px" }} />
+          <Favicon
+            url={tab.url}
+            styles={{ width: "16px", height: "16px", cursor: "pointer" }}
+            onClick={() => openSelectedTabs(tab)}
+          />
         </a>
         <div className="truncate max-w-[75%]">{tab.title}</div>
       </div>

@@ -4,6 +4,7 @@ import { AiOutlineAudio } from "react-icons/ai"
 import { BiLogoGithub } from "react-icons/bi"
 import { BsWindowSidebar } from "react-icons/bs"
 import { HiOutlineRectangleGroup } from "react-icons/hi2"
+import { IoIosRefresh } from "react-icons/io"
 import { MdMultipleStop } from "react-icons/md"
 import { PiTwitterLogoThin } from "react-icons/pi"
 import { TbWorldWww } from "react-icons/tb"
@@ -72,6 +73,7 @@ export default function Menu() {
         </Tooltip>
       ))}
       <div className="mt-auto">
+        <IoIosRefresh className="text-[20px] mb-2 mx-auto opacity-60 hover:opacity-100 cursor-pointer transition-all" />
         <a
           href="https://github.com/Developer27149"
           target="_blank"
