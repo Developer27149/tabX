@@ -4,7 +4,7 @@ export enum ETabType {
   "domain" = "域名",
   "status" = "活跃状态",
   "audible" = "声音",
-  "group" = "分组"
+  "analysis" = "访问分析"
 }
 
 export type TTabType = keyof typeof ETabType

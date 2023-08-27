@@ -5,6 +5,7 @@ import { allTabsStore, appStateStore, refreshTabsSignalStore } from "~store"
 import { queryTabs } from "~utils/tabs"
 
 import AllTabs from "./AllTabs"
+import AnalysisTab from "./AnalysisTab"
 import DomainTabs from "./DomainTabs"
 import Header from "./Header"
 import StatusTab from "./StatusTab"
@@ -57,12 +58,13 @@ export default function () {
     domain: <DomainTabs tabs={tabs} />,
     windowId: <WindowTabs tabs={tabs} />,
     audible: <AllTabs audible={true} tabs={tabs} />,
-    status: <StatusTab tabs={tabs} />
+    status: <StatusTab tabs={tabs} />,
+    analysis: <AnalysisTab />
   }
 
   return (
     <div className="w-[756px] h-[520px] p-2 pb-16 relative">
-      <Header />
+      {appState.tabsType === "analysis" ? null : <Header />}
       {tabComponentMap[appState.tabsType]}
     </div>
   )

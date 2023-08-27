@@ -1,24 +1,41 @@
-import clsx from "clsx"
-import { useAtom } from "jotai"
-import { AiOutlineAudio } from "react-icons/ai"
-import { BiLogoGithub } from "react-icons/bi"
+import clsx from "clsx";
+import { useAtom } from "jotai";
+import { AiOutlineAudio } from "react-icons/ai";
+import { BiLogoGithub } from "react-icons/bi";
 import { BsWindowSidebar } from "react-icons/bs"
-import { HiOutlineRectangleGroup } from "react-icons/hi2"
+import { HiOutlineLanguage } from "react-icons/hi2"
 import { IoIosRefresh } from "react-icons/io"
+import { IoAnalyticsOutline } from "react-icons/io5"
 import { MdMultipleStop } from "react-icons/md"
 import { PiTwitterLogoThin } from "react-icons/pi"
 import { TbWorldWww } from "react-icons/tb"
 import { VscMultipleWindows } from "react-icons/vsc"
 
-import { getI18nByKey } from "~i18n"
+import { getI18nByKey, i18n } from "~i18n"
 import { appStateStore, refreshTabsSignalStore } from "~store"
-import { ETabType, type TTabType } from "~types/common"
+import { EI18nLanguage } from "~types/browser"
+import { type TTabType } from "~types/common"
 
 import Tooltip from "./Tooltip"
 
 export default function Menu() {
   const [appState, setAppState] = useAtom(appStateStore)
   const [, setSignal] = useAtom(refreshTabsSignalStore)
+
+  const onChangeLanguage = () => {
+    setAppState((i) => {
+      const newLanguage =
+        i.language === EI18nLanguage["zh-CN"]
+          ? EI18nLanguage.en
+          : EI18nLanguage["zh-CN"]
+      const zhTip = i18n[newLanguage]["changeToEN"]
+      const enTip = i18n[newLanguage]["changeToZH"]
+      const tip = newLanguage === EI18nLanguage.en ? zhTip : enTip
+      window._toast.success(tip)
+      return { ...i, language: newLanguage }
+    })
+  }
+
   const groupType = [
     {
       intro: getI18nByKey("menuAll"),
@@ -46,9 +63,9 @@ export default function Menu() {
       id: "status"
     },
     {
-      intro: getI18nByKey("menuGroup"),
-      icon: <HiOutlineRectangleGroup />,
-      id: "group"
+      intro: getI18nByKey("menuVisitAnalysis"),
+      icon: <IoAnalyticsOutline />,
+      id: "analysis"
     }
   ]
   return (
@@ -76,8 +93,13 @@ export default function Menu() {
       <div className="mt-auto">
         <IoIosRefresh
           onClick={() => setSignal((prev) => !prev)}
-          className="text-[20px] mb-2 mx-auto opacity-60 hover:opacity-100 cursor-pointer transition-all"
+          className="text-[18px] mb-2 mx-auto opacity-60 hover:opacity-100 hover:text-blue-500 cursor-pointer transition-all"
         />
+        <HiOutlineLanguage
+          onClick={onChangeLanguage}
+          className="text-[18px] mb-2 mx-auto hover:opacity-100 hover:text-blue-500 cursor-pointer transition-all"
+        />
+        <span className="h-[1px] w-8 bg-gray-200 my-4 inline-block"></span>
         <a
           href="https://github.com/Developer27149"
           target="_blank"

@@ -1,7 +1,10 @@
-import { EStorageKey, getFromStorage, saveToStorage } from "~utils/storage"
+import { omit } from "lodash-es";
 
-import { EArea } from "~types/browser"
-import { omit } from "lodash-es"
+
+
+import { EArea } from "~types/browser";
+import { EStorageKey, getFromStorage, saveToStorage } from "~utils/storage"
+import { handleOpenTabs } from "~utils/tabs"
 
 export {}
 
@@ -15,3 +18,8 @@ chrome.tabs.onRemoved.addListener(async (tabId) => {
     saveToStorage(EStorageKey["pagePreview"], newRecord, EArea.local)
   }
 })
+
+/**
+ * 打开标签，统计数据
+ */
+chrome.tabs.onCreated.addListener(handleOpenTabs)

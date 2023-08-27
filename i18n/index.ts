@@ -16,10 +16,15 @@ export const i18n = {
     menuDomain: "域名",
     menuWindow: "窗口",
     menuAudible: "声音",
-    menuGroup: "分组",
+    menuVisitAnalysis: "访问分析",
     menuStatus: "状态",
     pinned: "已固定",
-    incognito: "隐身模式"
+    incognito: "隐身模式",
+    changeToZH: "切换到中文",
+    changeToEN: "切换到英文",
+    analysisTitle: "访问统计数据，哪个网站是你的最爱？",
+    analysisXLabel: "网站",
+    analysisYLabel: "访问次数"
   },
   en: {
     search: "Search",
@@ -34,10 +39,15 @@ export const i18n = {
     menuDomain: "Domain",
     menuWindow: "Window",
     menuAudible: "Audible",
-    menuGroup: "Group",
+    menuVisitAnalysis: "Visit Analysis",
     menuStatus: "Status",
     pinned: "Pinned",
-    incognito: "Incognito"
+    incognito: "Incognito",
+    changeToZH: "Change to Chinese",
+    changeToEN: "Change to English",
+    analysisTitle: "Visit statistics, which website is your favorite?",
+    analysisXLabel: "Website",
+    analysisYLabel: "Visit Times"
   }
 }
 

@@ -6,7 +6,7 @@ import { EArea, type TTab } from "~types/browser";
 
 
 
-import { EStorageKey, getFromStorage } from "./storage";
+import { EStorageKey, getFromStorage, saveToStorage } from "./storage";
 
 
 
@@ -91,4 +91,35 @@ export const resolveHostFromUrl = (url: string) => {
 
 export const reverseTabPinStatus = async (id: number, pinned: boolean) => {
   await chrome.tabs.update(id, { pinned: !pinned })
+}
+
+// save daily open tabs count
+export const handleOpenTabs = async () => {
+  const nowDateNum = Date.now()
+  const todayYYYYMMDD = new Date().toISOString().slice(0, 10)
+  const defaultArray = Array.from({ length: 6 }, (_,idx) => {
+    const date = new Date(nowDateNum - (idx + 1) * 24 * 60 * 60 * 1000)
+    const _todayYYYYMMDD = date.toISOString().slice(0, 10)
+    return {
+      [_todayYYYYMMDD]: 0
+    }
+  })
+  const result = await getFromStorage(EStorageKey.dailyOpenTabs, EArea.sync, [
+    ...defaultArray,
+    {
+      [todayYYYYMMDD]: await queryTabs().then((tabs) => tabs.length)
+    }
+  ])
+  // just save 15 days
+  if (result.length > 15) {
+    result.shift()
+  }
+  if(result[result.length - 1][todayYYYYMMDD]) {
+    result[result.length - 1][todayYYYYMMDD] += 1
+  } else {
+    result.push({
+      [todayYYYYMMDD]: 1
+    })
+  }
+  saveToStorage(EStorageKey.dailyOpenTabs, result, EArea.sync)
 }
