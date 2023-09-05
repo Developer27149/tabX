@@ -1,7 +1,7 @@
 {
   "name": "tabX",
-  "displayName": "AmazingTabX",
-  "version": "0.0.1",
+  "displayName": "TabX - 辅助管理浏览器标签页",
+  "version": "0.0.2",
   "description": "A amazing chrome extension for manage all tabs",
   "author": "aaron",
   "scripts": {

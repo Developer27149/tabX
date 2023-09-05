@@ -9,13 +9,17 @@ export const delayAsyncCallback = async <T>(
   callback: () => Promise<T>,
   delay = 1000
 ) => {
-  const promise = new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(true)
-    }, delay)
-  })
-  const [result] = await Promise.all([callback(), promise])
-  return result
+  try {
+    const promise = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true)
+      }, delay)
+    })
+    const [result] = await Promise.all([callback(), promise])
+    return result
+  } catch (error) {
+    return undefined
+  }
 }
 
 export const errorMessage = (msg: string) => {
@@ -34,10 +38,12 @@ export const getFavicon = (u: string, size = 32 as string | number) => {
   return url.toString()
 }
 
-
 // disable content menu
 export const disableContentMenu = () => {
   document.addEventListener("contextmenu", (e) => {
     e.preventDefault()
   })
 }
+
+export const asyncWait = (ms = 1000) =>
+  new Promise((resolve) => setTimeout(resolve, ms))

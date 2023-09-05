@@ -22,9 +22,10 @@ export const i18n = {
     incognito: "隐身模式",
     changeToZH: "切换到中文",
     changeToEN: "切换到英文",
-    analysisTitle: "访问统计数据，哪个网站是你的最爱？",
-    analysisXLabel: "网站",
-    analysisYLabel: "访问次数"
+    analysisTitle: "每日新开标签量",
+    analysisXLabel: "日期",
+    analysisYLabel: "创建新标签",
+    loading: "加载中..."
   },
   en: {
     search: "Search",
@@ -45,9 +46,10 @@ export const i18n = {
     incognito: "Incognito",
     changeToZH: "Change to Chinese",
     changeToEN: "Change to English",
-    analysisTitle: "Visit statistics, which website is your favorite?",
-    analysisXLabel: "Website",
-    analysisYLabel: "Visit Times"
+    analysisTitle: "Daily new tab count",
+    analysisXLabel: "Date",
+    analysisYLabel: "Create new tab",
+    loading: "Loading..."
   }
 }
 
