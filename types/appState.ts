@@ -1,11 +1,16 @@
-import type { EI18nLanguage, TTab } from "./browser"
-import type { ETabMode, TTabType } from "./common"
+import type { EI18nLanguage, TTab } from "./browser";
+import type { ETabMode, TTabType } from "./common";
+
+
+
+
 
 export enum EShowMode {
   loading,
   setting,
   normal,
-  login
+  login,
+  error
 }
 
 export interface IAppState {

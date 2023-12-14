@@ -38,6 +38,7 @@ export const setAppState = async (value: IAppState) => {
   }
 }
 
+// 持久化的设置
 export const getAppState = async (): Promise<IAppState> => {
   try {
     const result = await getFromStorage(EStorageKey.appState)

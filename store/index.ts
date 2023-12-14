@@ -1,7 +1,8 @@
+import { atom } from "jotai"
+
 import { EShowMode, type IAppState } from "~types/appState"
 import { EI18nLanguage, type TTab } from "~types/browser"
-import { ETabMode } from "~types/common"
-import { atom } from "jotai"
+import { ETabMode, ETabType } from "~types/common"
 
 export const appStateStore = atom<IAppState>({
   showMode: EShowMode.loading,

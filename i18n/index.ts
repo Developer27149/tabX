@@ -28,7 +28,8 @@ export const i18n = {
     analysisYLabel: "创建新标签",
     loading: "加载中...",
     menuGroup: "分组",
-    menuUnread: "未读"
+    menuUnread: "未读",
+    errorTips: "发生了神秘的错误 😭"
   },
   en: {
     search: "Search",
@@ -55,7 +56,8 @@ export const i18n = {
     loading: "Loading...",
     menuRobot: "AI Assistant",
     menuGroup: "Group",
-    menuUnread: "Unread"
+    menuUnread: "Unread",
+    errorTips: "Oh shit.Something went wrong 😭"
   }
 }
 
