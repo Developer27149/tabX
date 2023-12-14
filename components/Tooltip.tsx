@@ -4,8 +4,9 @@ interface IProps {
   children: React.ReactNode
   intro: React.ReactNode
   onClick?: () => void
+  side?: "top" | "right" | "bottom" | "left"
 }
-export default function ({ children, intro, onClick }: IProps) {
+export default function ({ children, intro, onClick, side }: IProps) {
   return (
     <Tooltip.Provider>
       <Tooltip.Root delayDuration={200}>
@@ -15,7 +16,7 @@ export default function ({ children, intro, onClick }: IProps) {
         <Tooltip.Portal>
           <Tooltip.Content
             sideOffset={5}
-            side="right"
+            side={side ?? "right"}
             align="center"
             className="bg-blue-600 p-1 px-2 rounded-sm text-white">
             {intro}

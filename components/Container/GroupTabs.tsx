@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from "react"
 import { CiMaximize1, CiMinimize1 } from "react-icons/ci"
 import { IoIosClose } from "react-icons/io"
+import { TbClearAll } from "react-icons/tb"
 
+import Tooltip from "~components/Tooltip"
 import type { IWindowsData, TTab } from "~types/browser"
 import { TChromeGroup } from "~types/common"
 import { closeWindowById, initAllWindows } from "~utils/chrome"
@@ -15,7 +17,6 @@ interface IProps {
 export default function ({ tabs }: IProps) {
   const [groups, setGroups] = useState<TChromeGroup[]>([])
   const [currentGroupId, setCurrentGroupId] = useState<number>(0)
-  const [UnfoldIdList, setUnfoldIdList] = useState<number[]>([])
 
   // a better group color map
   const colorMap = {
@@ -46,7 +47,6 @@ export default function ({ tabs }: IProps) {
     generateGroupListByTabs(tabs).then((res) => {
       setGroups(res)
       setCurrentGroupId(res[0]?.id)
-      setUnfoldIdList(res.map((i) => i.id))
     })
   }, [tabs])
 
@@ -65,7 +65,7 @@ export default function ({ tabs }: IProps) {
               style={{
                 background: colorMap[color] ?? "#9c27b0"
               }}>
-              {title}-{color}-{collapsed.toString()}
+              {title}
             </div>
           )
         })}
@@ -74,32 +74,25 @@ export default function ({ tabs }: IProps) {
       {currentGroup && (
         <div className="mt-4">
           <div className="group flex gap-4 items-center bg-gray-50 rounded-md p-2">
-            <div>{currentGroup.collapsed ? "折叠" : "展开"}</div>
+            <div>{currentGroup.collapsed ? "折叠" : "展开"}的分组</div>
             <div className="flex gap-4 items-center ml-auto">
-              <button>
-                {UnfoldIdList.includes(currentGroup.id) ? (
-                  <CiMaximize1
+              <Tooltip intro="解散分组下的标签">
+                <button>
+                  <TbClearAll
                     className="text-[16px] rounded-full text-blue-400 opacity-0 group-hover:opacity-100"
-                    onClick={() => {
-                      setUnfoldIdList((prev) =>
-                        prev.filter((i) => i !== currentGroup.id)
-                      )
-                    }}
+                    onClick={() => {}}
                   />
-                ) : (
-                  <CiMinimize1
-                    className="text-[16px] rounded-full text-blue-400 opacity-0 group-hover:opacity-100"
-                    onClick={() => {
-                      setUnfoldIdList((prev) => [...prev, currentGroup.id])
-                    }}
-                  />
-                )}
-              </button>
-              <button
-                onClick={onRemoveGroups(currentGroup.id)}
-                className="text-[16px] p-.5 group-hover:bg-blue-500 rounded-full text-white">
-                <IoIosClose />
-              </button>
+                </button>
+              </Tooltip>
+              <Tooltip intro="删除分组下的所有标签">
+                <button
+                  onClick={onRemoveGroups(currentGroup.id)}
+                  className="text-[16px] p-.5 group-hover:bg-blue-500 rounded-full text-white">
+                  <Tooltip intro={"close"}>
+                    <IoIosClose />
+                  </Tooltip>
+                </button>
+              </Tooltip>
             </div>
           </div>
           {

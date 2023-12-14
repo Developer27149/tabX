@@ -28,7 +28,6 @@ function Content() {
   const [state, setState] = useAtom(appStateStore)
   const [, setTabsState] = useAtom(allTabsStore)
   useEffect(() => {
-    globalThis["x"]()
     const init = async () => {
       const [tabs, prevAppState] = await Promise.all([
         queryTabs(),

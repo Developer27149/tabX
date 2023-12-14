@@ -4,7 +4,7 @@ import Menu from "./Menu"
 
 export default function ErrorBoundary() {
   return (
-    <div className="flex">
+    <div className="flex h-[600px]">
       <Menu />
       <div className="w-[600px] h-[full] flex justify-center items-center flex-col gap-8">
         <div className="m-4 text-[16px]">{getI18nByKey("errorTips")}</div>
