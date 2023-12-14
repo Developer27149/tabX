@@ -2,7 +2,6 @@ import { useAtom } from "jotai"
 import { useEffect, useMemo } from "react"
 
 import { allTabsStore, appStateStore, refreshTabsSignalStore } from "~store"
-import { TTab } from "~types/browser"
 import { EGroupId } from "~types/menu"
 import { queryTabs } from "~utils/tabs"
 
