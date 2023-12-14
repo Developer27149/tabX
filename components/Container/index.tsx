@@ -1,12 +1,15 @@
 import { useAtom } from "jotai"
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 
 import { allTabsStore, appStateStore, refreshTabsSignalStore } from "~store"
+import { TTab } from "~types/browser"
+import { EGroupId } from "~types/menu"
 import { queryTabs } from "~utils/tabs"
 
 import AllTabs from "./AllTabs"
 import AnalysisTab from "./AnalysisTab"
 import DomainTabs from "./DomainTabs"
+import GroupTabs from "./GroupTabs"
 import Header from "./Header"
 import StatusTab from "./StatusTab"
 import WindowTabs from "./WindowTabs"
@@ -53,13 +56,29 @@ export default function () {
     })
   }, [appState.searchQuery, signal])
 
+  const resortTabs = useMemo(() => {
+    const activeTabs = [] as chrome.tabs.Tab[]
+    const sleepTabs = [] as chrome.tabs.Tab[]
+    tabs.forEach((tab) => {
+      if (tab.active) {
+        activeTabs.push(tab)
+      } else {
+        sleepTabs.push(tab)
+      }
+    })
+    return [...activeTabs, ...sleepTabs]
+  }, [tabs])
+
   const tabComponentMap = {
-    all: <AllTabs tabs={tabs} />,
-    domain: <DomainTabs tabs={tabs} />,
-    windowId: <WindowTabs tabs={tabs} />,
-    audible: <AllTabs audible={true} tabs={tabs} />,
-    status: <StatusTab tabs={tabs} />,
-    analysis: <AnalysisTab />
+    [EGroupId.all]: <AllTabs tabs={resortTabs} />,
+    [EGroupId.domain]: <DomainTabs tabs={resortTabs} />,
+    [EGroupId.windows]: <WindowTabs tabs={resortTabs} />,
+    [EGroupId.audible]: <AllTabs audible={true} tabs={resortTabs} />,
+    [EGroupId.status]: <StatusTab tabs={resortTabs} />,
+    [EGroupId.analysis]: <AnalysisTab />,
+    [EGroupId.robot]: <AllTabs tabs={resortTabs} />,
+    [EGroupId.unread]: <AllTabs tabs={resortTabs} />,
+    [EGroupId.group]: <GroupTabs tabs={resortTabs} />
   }
 
   return (

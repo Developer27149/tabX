@@ -1,8 +1,6 @@
-import { omit } from "lodash-es";
+import { omit } from "lodash-es"
 
-
-
-import { EArea } from "~types/browser";
+import { EArea } from "~types/browser"
 import { EStorageKey, getFromStorage, saveToStorage } from "~utils/storage"
 import { handleOpenTabs } from "~utils/tabs"
 

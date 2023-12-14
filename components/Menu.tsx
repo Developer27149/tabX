@@ -1,20 +1,23 @@
-import clsx from "clsx";
-import { useAtom } from "jotai";
-import { AiOutlineAudio } from "react-icons/ai";
-import { BiLogoGithub } from "react-icons/bi";
+import clsx from "clsx"
+import { useAtom } from "jotai"
+import { AiOutlineAudio } from "react-icons/ai"
+import { BiLogoGithub } from "react-icons/bi"
 import { BsWindowSidebar } from "react-icons/bs"
+import { GoTasklist } from "react-icons/go"
 import { HiOutlineLanguage } from "react-icons/hi2"
+import { HiOutlineRectangleGroup } from "react-icons/hi2"
 import { IoIosRefresh } from "react-icons/io"
-import { IoAnalyticsOutline } from "react-icons/io5"
+// import { MdMultipleStop } from "react-icons/io5"
 import { MdMultipleStop } from "react-icons/md"
 import { PiTwitterLogoThin } from "react-icons/pi"
+import { TbRobot } from "react-icons/tb"
 import { TbWorldWww } from "react-icons/tb"
 import { VscMultipleWindows } from "react-icons/vsc"
 
 import { getI18nByKey, i18n } from "~i18n"
 import { appStateStore, refreshTabsSignalStore } from "~store"
 import { EI18nLanguage } from "~types/browser"
-import { type TTabType } from "~types/common"
+import { TTabType } from "~types/common"
 
 import Tooltip from "./Tooltip"
 
@@ -43,6 +46,16 @@ export default function Menu() {
       id: "all"
     },
     {
+      intro: getI18nByKey("menuUnread"),
+      icon: <GoTasklist />,
+      id: "task"
+    },
+    {
+      intro: getI18nByKey("menuGroup"),
+      icon: <HiOutlineRectangleGroup />,
+      id: "group"
+    },
+    {
       intro: getI18nByKey("menuDomain"),
       icon: <TbWorldWww />,
       id: "domain"
@@ -50,7 +63,7 @@ export default function Menu() {
     {
       intro: getI18nByKey("menuWindow"),
       icon: <VscMultipleWindows />,
-      id: "windowId"
+      id: "windows"
     },
     {
       intro: getI18nByKey("menuAudible"),
@@ -63,10 +76,15 @@ export default function Menu() {
       id: "status"
     },
     {
-      intro: getI18nByKey("menuVisitAnalysis"),
-      icon: <IoAnalyticsOutline />,
-      id: "analysis"
+      intro: getI18nByKey("menuRobot"),
+      icon: <TbRobot />,
+      id: "robot"
     }
+    // {
+    //   intro: getI18nByKey("menuVisitAnalysis"),
+    //   icon: <IoAnalyticsOutline />,
+    //   id: "analysis"
+    // }
   ]
   return (
     <div className="flex flex-col p-2 bg-gray-100 py-4 pt-3 gap-2">

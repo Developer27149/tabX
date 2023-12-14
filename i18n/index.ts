@@ -18,6 +18,7 @@ export const i18n = {
     menuAudible: "声音",
     menuVisitAnalysis: "访问分析",
     menuStatus: "状态",
+    menuRobot: "AI 辅助",
     pinned: "已固定",
     incognito: "隐身模式",
     changeToZH: "切换到中文",
@@ -25,7 +26,9 @@ export const i18n = {
     analysisTitle: "每日新开标签量",
     analysisXLabel: "日期",
     analysisYLabel: "创建新标签",
-    loading: "加载中..."
+    loading: "加载中...",
+    menuGroup: "分组",
+    menuUnread: "未读"
   },
   en: {
     search: "Search",
@@ -49,7 +52,10 @@ export const i18n = {
     analysisTitle: "Daily new tab count",
     analysisXLabel: "Date",
     analysisYLabel: "Create new tab",
-    loading: "Loading..."
+    loading: "Loading...",
+    menuRobot: "AI Assistant",
+    menuGroup: "Group",
+    menuUnread: "Unread"
   }
 }
 

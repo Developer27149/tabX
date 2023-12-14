@@ -1,8 +1,8 @@
 {
   "name": "tabX",
-  "displayName": "TabX - 辅助管理浏览器标签页",
-  "version": "0.0.2",
-  "description": "A amazing chrome extension for manage all tabs",
+  "displayName": "TabX - 做更好用的浏览器标签页辅助工具",
+  "version": "0.0.3",
+  "description": "A amazing chrome extension for manage all tabs.",
   "author": "aaron",
   "scripts": {
     "dev": "plasmo dev",
@@ -42,7 +42,8 @@
       "storage",
       "tabs",
       "favicon",
-      "activeTab"
+      "activeTab",
+      "tabGroups"
     ],
     "host_permissions": [
       "<all_urls>"

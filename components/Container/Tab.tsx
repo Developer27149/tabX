@@ -32,7 +32,7 @@ export default function ({ tab, styles }: IProps) {
   if (appState.tabMode === ETabMode.listView) {
     return (
       <div
-        className="flex gap-2 items-center p-1 rounded-sm bg-white hover:bg-blue-500 hover:text-white transition-all mr-4 group"
+        className="flex gap-2 items-center p-1 rounded-sm bg-white text-blue-500 hover:bg-blue-100 transition-color mr-4 group"
         style={styles}>
         <Favicon
           url={tab.url}
