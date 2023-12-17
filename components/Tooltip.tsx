@@ -1,16 +1,27 @@
-import * as Tooltip from "@radix-ui/react-tooltip"
+import * as Tooltip from "@radix-ui/react-tooltip";
+
+
+
+
 
 interface IProps {
   children: React.ReactNode
   intro: React.ReactNode
   onClick?: () => void
   side?: "top" | "right" | "bottom" | "left"
+  className?: string
 }
-export default function ({ children, intro, onClick, side }: IProps) {
+export default function ({
+  children,
+  intro,
+  onClick,
+  side,
+  className = ""
+}: IProps) {
   return (
     <Tooltip.Provider>
       <Tooltip.Root delayDuration={200}>
-        <Tooltip.Trigger asChild onClick={onClick}>
+        <Tooltip.Trigger asChild onClick={onClick} className={className}>
           {children}
         </Tooltip.Trigger>
         <Tooltip.Portal>

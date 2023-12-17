@@ -1,12 +1,6 @@
-import { type CSSProperties, useState } from "react";
+import { CSSProperties, useState } from "react"
 
-
-
-import { getFavicon } from "~utils/common";
-
-
-
-
+import { getFavicon } from "~utils/common"
 
 interface IProps {
   url: string
@@ -17,7 +11,10 @@ export default function ({ styles, url, onClick }: IProps) {
   return (
     <div
       className="inline-block p-1 rounded-sm bg-white relative"
-      onClick={onClick}>
+      onClick={onClick}
+      style={{
+        maxHeight: "32px"
+      }}>
       <img
         src={getFavicon(url)}
         style={{ width: "24px", height: "24px", ...styles }}

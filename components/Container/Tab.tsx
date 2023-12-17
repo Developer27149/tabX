@@ -2,6 +2,7 @@ import { useAtomValue } from "jotai"
 import { useEffect, useState } from "react"
 
 import Favicon from "~components/Favicon"
+import Tooltip from "~components/Tooltip"
 import { getI18nByKey } from "~i18n"
 import { appStateStore } from "~store"
 import type { TTab } from "~types/browser"
@@ -39,7 +40,22 @@ export default function ({ tab, styles }: IProps) {
           styles={{ cursor: "pointer" }}
           onClick={() => openSelectedTabs(tab)}
         />
-        <div className="truncate max-w-[420px]">{tab.title}</div>
+        <Tooltip
+          intro={
+            <div className="flex p-2 gap-1">
+              <Favicon
+                url={tab.url}
+                styles={{ cursor: "pointer" }}
+                onClick={() => openSelectedTabs(tab)}
+              />{" "}
+              <div className="max-w-[480px] p-2 break-words whitespace-normal">
+                {tab.title}
+              </div>
+            </div>
+          }
+          side="top">
+          <div className="truncate max-w-[420px]">{tab.title}</div>
+        </Tooltip>
         <TabAction tab={tab} />
       </div>
     )

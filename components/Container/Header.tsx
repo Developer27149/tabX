@@ -29,14 +29,14 @@ export default function () {
           <TfiSearch />
         </button>
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 cursor-pointer">
         {appState.tabsType === "audible" && (
           <button className="text-blue-500">全部静音</button>
         )}
         <button
           onClick={onSwitchTabListMode}
           className={clsx(
-            "transition-all transform hover:scale-110 origin-center hover:text-blue-500 hover:rotate-6",
+            "transition-all transform hover:scale-110 origin-center hover:text-blue-500 hover:rotate-6 cursor-pointer",
             {
               "text-blue-400 scale-110": appState.tabMode === ETabMode.listView
             }
