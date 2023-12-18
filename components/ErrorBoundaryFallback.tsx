@@ -1,3 +1,5 @@
+import errorImg from "data-base64:~assets/error.png"
+
 import { getI18nByKey } from "~i18n"
 
 import Menu from "./Menu"
@@ -7,6 +9,7 @@ export default function ErrorBoundary() {
     <div className="flex h-[600px]">
       <Menu />
       <div className="w-[600px] h-[full] flex justify-center items-center flex-col gap-8">
+        <img src={errorImg} className="w-[320px]" />
         <div className="m-4 text-[16px]">{getI18nByKey("errorTips")}</div>
         <div>
           📮{" "}

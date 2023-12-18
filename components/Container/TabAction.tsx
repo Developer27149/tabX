@@ -46,11 +46,13 @@ const TabAction: React.FC<TabActionProps> = ({ tab, isPreview }) => {
         onClick={() => copyTabUrl(tab, successMessage)}>
         <CgCopy />
       </button>
-      <button
-        className="opacity-0 text-[15px]  group-hover:opacity-100"
-        onClick={() => onReverseTabMutStatus(tab)}>
-        {tab.mutedInfo.muted ? <BsMic /> : <BsMicMute />}
-      </button>
+      {/* {tab.mutedInfo.muted && (
+        <button
+          className="opacity-0 text-[15px]  group-hover:opacity-100"
+          onClick={() => onReverseTabMutStatus(tab)}>
+          {tab.mutedInfo.muted ? <BsMic /> : <BsMicMute />}
+        </button>
+      )} */}
       <button
         className="opacity-0 text-[15px]  group-hover:opacity-100"
         onClick={() => {

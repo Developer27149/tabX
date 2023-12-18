@@ -24,10 +24,9 @@ export default function ({ tabs }: IProps) {
   const [groups, setGroups] = useState<TChromeGroup[]>([])
   const [currentGroupId, setCurrentGroupId] = useState<number>(0)
   const [currentGroupTitle, setCurrentGroupTitle] = useState<string>("")
-
   // a better group
   const PopularColors = {
-    grey: "#808080",
+    grey: "#3e3e3e",
     blue: "#1a73e8",
     red: "#d93025",
     yellow: "#f9ab00",
@@ -121,6 +120,7 @@ export default function ({ tabs }: IProps) {
         ].map(({ title, id, color }) => {
           return (
             <div
+              key={id}
               onClick={() => setCurrentGroupId(id)}
               className={clsx(
                 "text-[16px] cursor-pointer text-white max-w-[128px] truncate",
