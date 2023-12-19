@@ -1,5 +1,9 @@
 import type { EI18nLanguage, TTab } from "./browser";
-import type { ETabMode, TTabType } from "./common";
+import type { ETabMode, TMenuId } from "./common"
+
+
+
+
 
 
 
@@ -13,11 +17,8 @@ export enum EShowMode {
   error
 }
 
-export interface IAppState {
-  showMode: EShowMode
-  tabsType: TTabType
-  tabMode: ETabMode
-  searchQuery: string
+export interface IAppPersistentState {
+  menuId: TMenuId
   language: EI18nLanguage
 }
 

@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai"
 
-import { appStateStore } from "~store"
+import { appPersistentConfig } from "~store"
 
 export const i18n = {
   "zh-CN": {
@@ -29,7 +29,8 @@ export const i18n = {
     loading: "加载中...",
     menuGroup: "分组",
     menuUnread: "未读",
-    errorTips: "发生了神秘的错误 😭"
+    errorTips: "发生了神秘的错误 😭",
+    notFound: "什么都没找到..."
   },
   en: {
     search: "Search",
@@ -57,12 +58,13 @@ export const i18n = {
     menuRobot: "AI Assistant",
     menuGroup: "Group",
     menuUnread: "Unread",
-    errorTips: "Oh shit.Something went wrong 😭"
+    errorTips: "Oh shit.Something went wrong 😭",
+    notFound: "Oh, nothing was found..."
   }
 }
 
 export const getI18nByKey = (key: keyof (typeof i18n)["zh-CN"]) => {
-  const appState = useAtomValue(appStateStore)
+  const appState = useAtomValue(appPersistentConfig)
   return (
     i18n?.[appState.language]?.[key] ??
     "Sorry, the translation is not available."

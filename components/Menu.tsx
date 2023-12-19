@@ -1,8 +1,8 @@
 import clsx from "clsx"
-import { useAtom } from "jotai"
+import { useAtom, useSetAtom } from "jotai"
 import { AiOutlineAudio } from "react-icons/ai"
 import { BiLogoGithub } from "react-icons/bi"
-import { BsWindowSidebar } from "react-icons/bs"
+import { BsCollection } from "react-icons/bs"
 import { GoTasklist } from "react-icons/go"
 import { HiOutlineLanguage } from "react-icons/hi2"
 import { HiOutlineRectangleGroup } from "react-icons/hi2"
@@ -14,18 +14,20 @@ import { TbWorldWww } from "react-icons/tb"
 import { VscMultipleWindows } from "react-icons/vsc"
 
 import { getI18nByKey, i18n } from "~i18n"
-import { appStateStore, refreshTabsSignalStore } from "~store"
+import { allTabsStore, appPersistentConfig } from "~store"
 import { EI18nLanguage } from "~types/browser"
-import { TTabType } from "~types/common"
+import { EMenuId } from "~types/menu"
+import { setAppState } from "~utils/storage"
+import { queryTabs } from "~utils/tabs"
 
 import Tooltip from "./Tooltip"
 
 export default function Menu() {
-  const [appState, setAppState] = useAtom(appStateStore)
-  const [, setSignal] = useAtom(refreshTabsSignalStore)
+  const [config, setConfig] = useAtom(appPersistentConfig)
+  const setAllTabs = useSetAtom(allTabsStore)
 
   const onChangeLanguage = () => {
-    setAppState((i) => {
+    setConfig((i) => {
       const newLanguage =
         i.language === EI18nLanguage["zh-CN"]
           ? EI18nLanguage.en
@@ -34,74 +36,79 @@ export default function Menu() {
       const enTip = i18n[newLanguage]["changeToZH"]
       const tip = newLanguage === EI18nLanguage.en ? zhTip : enTip
       window._toast.success(tip)
-      return { ...i, language: newLanguage }
+      const newConfig = { ...i, language: newLanguage }
+      setAppState(newConfig)
+      return newConfig
     })
+  }
+
+  const onRefresh = async () => {
+    const tabs = await queryTabs()
+    setAllTabs(tabs)
   }
 
   const groupType = [
     {
       intro: getI18nByKey("menuAll"),
-      icon: <BsWindowSidebar />,
-      id: "all"
-    },
-    {
-      intro: getI18nByKey("menuUnread"),
-      icon: <GoTasklist />,
-      id: "task"
+      icon: <BsCollection />,
+      id: EMenuId.all
     },
     {
       intro: getI18nByKey("menuGroup"),
       icon: <HiOutlineRectangleGroup />,
-      id: "group"
-    },
-    {
-      intro: getI18nByKey("menuDomain"),
-      icon: <TbWorldWww />,
-      id: "domain"
+      id: EMenuId.group
     },
     {
       intro: getI18nByKey("menuWindow"),
       icon: <VscMultipleWindows />,
-      id: "windows"
-    },
-    {
-      intro: getI18nByKey("menuAudible"),
-      icon: <AiOutlineAudio />,
-      id: "audible"
-    },
-    {
-      intro: getI18nByKey("menuStatus"),
-      icon: <MdMultipleStop />,
-      id: "status"
-    },
-    {
-      intro: getI18nByKey("menuRobot"),
-      icon: <TbRobot />,
-      id: "robot"
+      id: EMenuId.windows
     }
     // {
-    //   intro: getI18nByKey("menuVisitAnalysis"),
-    //   icon: <IoAnalyticsOutline />,
-    //   id: "analysis"
+    //   intro: getI18nByKey("menuUnread"),
+    //   icon: <GoTasklist />,
+    //   id: EMenuId.unread
+    // },
+    // {
+    //   intro: getI18nByKey("menuDomain"),
+    //   icon: <TbWorldWww />,
+    //   id: EMenuId.domain
+    // },
+
+    // {
+    //   intro: getI18nByKey("menuAudible"),
+    //   icon: <AiOutlineAudio />,
+    //   id: EMenuId.audible
+    // },
+    // {
+    //   intro: getI18nByKey("menuStatus"),
+    //   icon: <MdMultipleStop />,
+    //   id: EMenuId.status
+    // },
+    // {
+    //   intro: getI18nByKey("menuRobot"),
+    //   icon: <TbRobot />,
+    //   id: EMenuId.robot
     // }
   ]
   return (
-    <div className="flex flex-col p-2 bg-gray-100 py-4 pt-3 gap-2">
+    <div className="flex flex-col p-2 bg-gray-100 py-4 pt-3 gap-2 min-w-[44px] max-w-[44px]">
       {groupType.map(({ intro, icon, id }) => (
         <Tooltip key={id} intro={intro}>
           <div
             style={{
-              color: appState.tabsType === id ? "white" : "#2463eb",
-              opacity: appState.tabsType === id ? 1 : 0.8
+              color: config.menuId === id ? "#fff" : "#2463eb",
+              opacity: config.menuId === id ? 1 : 0.8,
+              background: config.menuId === id ? "var(--p-color)" : "white"
             }}
             onClick={() => {
-              setAppState((i) => ({ ...i, tabsType: id as TTabType }))
+              setConfig((i) => {
+                const newConfig = { ...i, menuId: id }
+                setAppState(newConfig)
+                return newConfig
+              })
             }}
             className={clsx(
-              "cursor-pointer p-1 bg-blue-100 rounded-md text-[20px] hover:scale-105 transform transition-all",
-              {
-                "bg-blue-500": appState.tabsType === id
-              }
+              "cursor-pointer p-1 bg-blue-50 rounded-sm text-[20px] hover:scale-105 transform transition-all flex justify-center"
             )}>
             {icon}
           </div>
@@ -109,14 +116,14 @@ export default function Menu() {
       ))}
       <div className="mt-auto">
         <IoIosRefresh
-          onClick={() => setSignal((prev) => !prev)}
+          onClick={onRefresh}
           className="text-[18px] mb-2 mx-auto opacity-60 hover:opacity-100 hover:text-blue-500 cursor-pointer transition-all"
         />
         <HiOutlineLanguage
           onClick={onChangeLanguage}
           className="text-[18px] mb-2 mx-auto hover:opacity-100 hover:text-blue-500 cursor-pointer transition-all"
         />
-        <span className="h-[1px] w-8 bg-gray-200 my-4 inline-block"></span>
+        {/* <span className="h-[1px] w-8 bg-gray-200 my-4 inline-block"></span>
         <a
           href="https://github.com/Developer27149"
           target="_blank"
@@ -128,7 +135,7 @@ export default function Menu() {
           target="_blank"
           className="animation_icon-hover">
           <PiTwitterLogoThin className="mt-auto text-[20px] mx-auto" />
-        </a>
+        </a> */}
       </div>
     </div>
   )

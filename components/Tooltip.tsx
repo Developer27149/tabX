@@ -29,7 +29,7 @@ export default function ({
             sideOffset={5}
             side={side ?? "right"}
             align="center"
-            className="bg-blue-600 p-1 px-2 rounded-sm text-white">
+            className="bg-blue-600 p-1 px-2 rounded-sm text-white z-20">
             {intro}
             <Tooltip.Arrow className="fill-blue-600" />
           </Tooltip.Content>

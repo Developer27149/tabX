@@ -1,13 +1,32 @@
 import clsx from "clsx"
 import { useAtom } from "jotai"
+import { memo, useEffect, useState } from "react"
 import { TfiSearch } from "react-icons/tfi"
 
 import { getI18nByKey, i18n } from "~i18n"
-import { appStateStore } from "~store"
+import { appPersistentConfig } from "~store"
 import { ETabMode } from "~types/common"
 
+const TabQuery = memo(() => {
+  const [query, setQuery] = useState("")
+  useEffect(() => {}, [])
+  return (
+    <div className="relative flex items-center">
+      <input
+        className="w-[120px] p-1 px-2 border border-gray-100 border-x-transparent border-t-transparent rounded-sm pr-8 focus:w-[200px] transition-all outline-none focus-visible:outline-none focus-visible:border-b-blue-200"
+        placeholder={getI18nByKey("search")}
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+      <button className="relative flex items-center justify-center right-5">
+        <TfiSearch />
+      </button>
+    </div>
+  )
+})
+
 export default function () {
-  const [appState, setAppState] = useAtom(appStateStore)
+  const [appState, setAppState] = useAtom(appPersistentConfig)
   const onSwitchTabListMode = () => {
     setAppState((prev) => ({ ...prev, tabMode: ETabMode.listView }))
   }
@@ -16,21 +35,9 @@ export default function () {
   }
   return (
     <div className="left-0 right-0 top-0 m-1 rounded-sm box-border flex items-center justify-between sticky pb-4">
-      <div className="relative flex items-center">
-        <input
-          className="w-[120px] p-1 px-2 border border-gray-100 border-x-transparent border-t-transparent rounded-sm pr-8 focus:w-[200px] transition-all outline-none focus-visible:outline-none focus-visible:border-b-blue-200"
-          placeholder={getI18nByKey("search")}
-          value={appState.searchQuery}
-          onChange={(e) =>
-            setAppState((prev) => ({ ...prev, searchQuery: e.target.value }))
-          }
-        />
-        <button className="relative flex items-center justify-center right-5">
-          <TfiSearch />
-        </button>
-      </div>
+      <TabQuery />
       <div className="flex gap-4 cursor-pointer">
-        {appState.tabsType === "audible" && (
+        {appState.menuId === "audible" && (
           <button className="text-blue-500">全部静音</button>
         )}
         <button
@@ -38,7 +45,7 @@ export default function () {
           className={clsx(
             "transition-all transform hover:scale-110 origin-center hover:text-blue-500 hover:rotate-6 cursor-pointer",
             {
-              "text-blue-400 scale-110": appState.tabMode === ETabMode.listView
+              "text-blue-400 scale-110": true
             }
           )}>
           <svg
@@ -57,8 +64,7 @@ export default function () {
           className={clsx(
             "transition-all transform hover:scale-110 origin-center hover:text-blue-500 hover:rotate-6",
             {
-              "text-blue-400 scale-110":
-                appState.tabMode === ETabMode.pagePreview
+              "text-blue-400 scale-110": false
             }
           )}>
           <svg

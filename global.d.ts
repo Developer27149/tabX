@@ -4,4 +4,5 @@ declare global {
   interface Window {
     _toast: toast
   }
+  _toast: toast
 }

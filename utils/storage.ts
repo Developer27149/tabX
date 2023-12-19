@@ -1,6 +1,7 @@
 import { getI18nByKey } from "~i18n"
 import type { IAppState } from "~types/appState"
 import { EArea, EI18nLanguage } from "~types/browser"
+import { EMenuId } from "~types/menu"
 
 import { errorMessage } from "./common"
 
@@ -31,6 +32,7 @@ export const saveToStorage = async (
 
 export const setAppState = async (value: IAppState) => {
   try {
+    console.log("repeat save app config...")
     await saveToStorage(EStorageKey.appState, value)
   } catch (error) {
     errorMessage(getI18nByKey("saveStateFailed"))
@@ -44,6 +46,9 @@ export const getAppState = async (): Promise<IAppState> => {
     const result = await getFromStorage(EStorageKey.appState)
     if (result["language"] === undefined) {
       result["language"] = EI18nLanguage["zh-CN"]
+    }
+    if (result["menuId"] === undefined) {
+      result["menuId"] = EMenuId.all
     }
     console.log("result", result)
     return result ?? {}

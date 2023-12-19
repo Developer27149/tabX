@@ -1,20 +1,22 @@
 import "./style.css";
 import "./styles/animation.css";
 
-import { allTabsStore, appStateStore } from "~store";
-import { getAppState, setAppState } from "~utils/storage";
-import toast, { Toaster } from "react-hot-toast";
 
-import Container from "~components/Container";
-import { EShowMode } from "~types/appState";
-import { ErrorBoundary } from "react-error-boundary";
-import ErrorBoundaryFallback from "~components/ErrorBoundaryFallback";
-import Loading from "~components/Loading";
-import Menu from "~components/Menu";
-import Setting from "~components/Setting";
-import { queryTabs } from "~utils/tabs";
-import { useAtom } from "jotai";
-import { useEffect } from "react";
+
+import { useSetAtom } from "jotai"
+import { useEffect, useState } from "react"
+import { ErrorBoundary } from "react-error-boundary"
+import toast, { Toaster } from "react-hot-toast"
+
+import Container from "~components/Container"
+import ErrorBoundaryFallback from "~components/ErrorBoundaryFallback"
+import Loading from "~components/Loading"
+import Menu from "~components/Menu"
+import TabQuery from "~components/TabQuery"
+import { allTabsStore, appPersistentConfig } from "~store"
+import { asyncWait } from "~utils/common"
+import { getAppState, setAppState } from "~utils/storage"
+import { queryTabs } from "~utils/tabs"
 
 function IndexPopup() {
   return (
@@ -25,43 +27,34 @@ function IndexPopup() {
 }
 
 function Content() {
-  const [state, setState] = useAtom(appStateStore)
-  const [, setTabsState] = useAtom(allTabsStore)
+  const [loading, setLoading] = useState(true)
+  const setGlobalConfig = useSetAtom(appPersistentConfig)
+  const setTabsState = useSetAtom(allTabsStore)
+  const init = async () => {
+    const [tabs, config] = await Promise.all([
+      queryTabs(),
+      getAppState(),
+      asyncWait(0)
+    ])
+    setTabsState(tabs)
+    setGlobalConfig(config)
+    setLoading(false)
+  }
+
   useEffect(() => {
-    window._toast = toast
-    const init = async () => {
-      try {
-        const [tabs, prevAppState] = await Promise.all([
-          queryTabs(),
-          getAppState()
-        ])
-        setTabsState(tabs)
-        const newState = { ...prevAppState, showMode: EShowMode.normal }
-        if (newState.showMode === EShowMode.loading) {
-          newState.showMode = EShowMode.normal
-        }
-        setState(newState)
-      } catch (error) {
-        console.log("init failed", error)
-      }
-    }
+    globalThis._toast = toast
     init()
     // disableContentMenu()
   }, [])
 
-  // sync app state to storage
-  useEffect(() => {
-    // if (state.showMode !== EShowMode.loading) {
-
-    // }
-    setAppState(state)
-  }, [state])
-  if (state.showMode === EShowMode.loading) return <Loading />
-  if (state.showMode === EShowMode.setting) return <Setting />
+  if (loading) return <Loading />
   return (
-    <div className="w-[800px] flex">
+    <div className="w-[800px] h-[420px] flex">
       <Menu />
-      <Container />
+      <div className="flex-grow h-[420px] overflow-y-scroll relative">
+        <TabQuery />
+        <Container />
+      </div>
       <Toaster />
     </div>
   )

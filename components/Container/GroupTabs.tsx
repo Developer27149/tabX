@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import { useSetAtom } from "jotai"
+import { useAtom, useSetAtom } from "jotai"
 import { useEffect, useMemo, useState } from "react"
 import { AiOutlineEnter } from "react-icons/ai"
 import { FaArrowRight } from "react-icons/fa"
@@ -10,17 +10,14 @@ import { TbClearAll } from "react-icons/tb"
 
 import Tooltip from "~components/Tooltip"
 import { allTabsStore } from "~store"
-import type { TTab } from "~types/browser"
 import { TChromeGroup } from "~types/common"
 import { generateGroupListByTabs } from "~utils/groups"
 
+import AllTabs from "./AllTabs"
 import Tab from "./Tab"
 
-interface IProps {
-  tabs: TTab[]
-}
-export default function ({ tabs }: IProps) {
-  const setAllTabs = useSetAtom(allTabsStore)
+export default function () {
+  const [allTabs, setAllTabs] = useAtom(allTabsStore)
   const [groups, setGroups] = useState<TChromeGroup[]>([])
   const [currentGroupId, setCurrentGroupId] = useState<number>(0)
   const [currentGroupTitle, setCurrentGroupTitle] = useState<string>("")
@@ -99,11 +96,11 @@ export default function ({ tabs }: IProps) {
   }
 
   useEffect(() => {
-    generateGroupListByTabs(tabs).then((res) => {
+    generateGroupListByTabs(allTabs).then((res) => {
       setGroups(res)
       setCurrentGroupId(res[0]?.id)
     })
-  }, [tabs])
+  }, [allTabs])
 
   const currentGroup = useMemo(() => {
     const currentGroup = groups.find((i) => i.id === currentGroupId)
@@ -113,7 +110,7 @@ export default function ({ tabs }: IProps) {
 
   return (
     <div className="pb-12 overflow-auto max-h-[450px] pr-2">
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex gap-2 flex-wrap justify-center m-2 my-6">
         {[
           ...groups.filter((i) => i.title !== ""),
           ...groups.filter((i) => i.title === "")

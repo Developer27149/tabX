@@ -1,4 +1,4 @@
-export enum EGroupId {
+export enum EMenuId {
   all = "all",
   group = "group",
   domain = "domain",

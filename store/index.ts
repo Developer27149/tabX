@@ -1,16 +1,17 @@
 import { atom } from "jotai"
 
-import { EShowMode, type IAppState } from "~types/appState"
 import { EI18nLanguage, type TTab } from "~types/browser"
-import { ETabMode, ETabType } from "~types/common"
+import { EMenuId } from "~types/menu"
 
-export const appStateStore = atom<IAppState>({
-  showMode: EShowMode.loading,
-  tabsType: "all",
-  tabMode: ETabMode.listView,
-  searchQuery: "",
-  language: EI18nLanguage["zh-CN"]
+export const appPersistentConfig = atom({
+  language: EI18nLanguage["zh-CN"],
+  menuId: EMenuId.all
 })
 
 export const allTabsStore = atom<TTab[]>([])
-export const refreshTabsSignalStore = atom(true)
+
+export const defaultFilter = {
+  query: "", // 搜索
+  isAudible: false // 有声音
+}
+export const filterStore = atom(defaultFilter)

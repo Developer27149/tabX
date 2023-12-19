@@ -1,16 +1,16 @@
+import { useAtomValue } from "jotai"
 import { useEffect, useState } from "react"
 import { CiMaximize1, CiMinimize1 } from "react-icons/ci"
 import { IoIosClose } from "react-icons/io"
 
+import { allTabsStore } from "~store"
 import type { IWindowsData, TTab } from "~types/browser"
 import { closeWindowById, initAllWindows } from "~utils/chrome"
 
 import Tab from "./Tab"
 
-interface IProps {
-  tabs: TTab[]
-}
-export default function ({ tabs }: IProps) {
+export default function () {
+  const allTabs = useAtomValue(allTabsStore)
   const [windows, setWindows] = useState<IWindowsData[]>([])
 
   const onRemoveWindow = (id: number) => () => {
@@ -24,7 +24,7 @@ export default function ({ tabs }: IProps) {
     })
   }, [])
   return (
-    <div className="flex flex-col gap-4 pb-12 overflow-auto max-h-[450px] pr-2">
+    <div className="flex flex-col gap-4 pb-12 pr-2">
       {windows.map(({ name, id, isMaximized }, idx) => (
         <div
           key={id}
@@ -72,7 +72,7 @@ export default function ({ tabs }: IProps) {
           {isMaximized && (
             <div className="p-1">
               {/* items */}
-              {tabs
+              {allTabs
                 .filter((i) => i.windowId === id)
                 .map((tab) => (
                   <Tab tab={tab} styles={{ marginRight: 0 }} key={tab.id} />

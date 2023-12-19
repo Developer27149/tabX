@@ -1,4 +1,4 @@
-export enum ETabType {
+export enum EMenuTip {
   "all" = "全部",
   "windowId" = "窗口",
   "domain" = "域名",
@@ -10,7 +10,7 @@ export enum ETabType {
   "unread" = "未读"
 }
 
-export type TTabType = keyof typeof ETabType
+export type TMenuId = keyof typeof EMenuTip
 
 export enum ETabMode {
   "pagePreview",
