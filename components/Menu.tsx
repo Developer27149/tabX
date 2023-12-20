@@ -14,7 +14,7 @@ import { TbWorldWww } from "react-icons/tb"
 import { VscMultipleWindows } from "react-icons/vsc"
 
 import { getI18nByKey, i18n } from "~i18n"
-import { allTabsStore, appPersistentConfig } from "~store"
+import { allTabsStore, appPersistentConfig, draftTabsStore } from "~store"
 import { EI18nLanguage } from "~types/browser"
 import { EMenuId } from "~types/menu"
 import { setAppState } from "~utils/storage"
@@ -25,6 +25,7 @@ import Tooltip from "./Tooltip"
 export default function Menu() {
   const [config, setConfig] = useAtom(appPersistentConfig)
   const setAllTabs = useSetAtom(allTabsStore)
+  const setDraftTabs = useSetAtom(draftTabsStore)
 
   const onChangeLanguage = () => {
     setConfig((i) => {
@@ -104,6 +105,8 @@ export default function Menu() {
               setConfig((i) => {
                 const newConfig = { ...i, menuId: id }
                 setAppState(newConfig)
+                setDraftTabs([])
+                onRefresh()
                 return newConfig
               })
             }}
@@ -114,7 +117,7 @@ export default function Menu() {
           </div>
         </Tooltip>
       ))}
-      <div className="mt-auto">
+      <div className="mt-auto text-blue">
         <IoIosRefresh
           onClick={onRefresh}
           className="text-[18px] mb-2 mx-auto opacity-60 hover:opacity-100 hover:text-blue-500 cursor-pointer transition-all"

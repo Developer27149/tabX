@@ -1,7 +1,7 @@
 {
   "name": "tabX",
   "displayName": "TabX - 做更好用的浏览器标签页辅助工具",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A amazing chrome extension for manage all tabs.",
   "author": "aaron",
   "scripts": {

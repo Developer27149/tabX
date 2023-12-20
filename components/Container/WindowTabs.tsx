@@ -24,6 +24,17 @@ export default function () {
   }, [])
   return (
     <div className="flex flex-col gap-4 pb-12 pr-2">
+      <div className="flex justify-end flex-nowrap gap-2 bg-light-300 sticky top-0 left-0 right-0 p-4 group w-full overflow-x-scroll">
+        {
+        windows.map((_,idx) => {
+          return (
+            <div className="px-1 group-hover:p-4 h-8 rounded-sm flex items-center justify-center opacity-50 hover:opacity-100 bg-white text-blue transform skew-x-[-10deg] group-hover:skew-x-0 transition-all text-white border shadow shadow-blue-400">
+              <span className="w-0 group-hover:w-auto opacity-0 group-hover:opacity-100">Window {idx+1}</span>
+            </div>
+          )
+        })
+      }
+      </div>
       {windows.map(({ name, id, isMaximized }, idx) => (
         <div
           key={id}
