@@ -1,13 +1,12 @@
-import { useAtomValue } from "jotai"
-import { useEffect, useState } from "react"
 import { CiMaximize1, CiMinimize1 } from "react-icons/ci"
-import { IoIosClose } from "react-icons/io"
-
-import { allTabsStore } from "~store"
 import type { IWindowsData, TTab } from "~types/browser"
 import { closeWindowById, initAllWindows } from "~utils/chrome"
+import { useEffect, useState } from "react"
 
+import { IoIosClose } from "react-icons/io"
 import Tab from "./Tab"
+import { allTabsStore } from "~store"
+import { useAtomValue } from "jotai"
 
 export default function () {
   const allTabs = useAtomValue(allTabsStore)
