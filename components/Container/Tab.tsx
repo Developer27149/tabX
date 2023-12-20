@@ -1,23 +1,25 @@
-import clsx from "clsx"
+import Favicon from "~components/Favicon"
 import { AiOutlineSound } from "react-icons/ai"
 import { GiNightSleep } from "react-icons/gi"
 
-import Favicon from "~components/Favicon"
 import type { TTab } from "~types/browser"
-import { openSelectedTabs } from "~utils/tabs"
-
 import TabAction from "./TabAction"
+import clsx from "clsx"
+import { draftTabsStore } from "~store"
+import { openSelectedTabs } from "~utils/tabs"
+import { useAtom } from "jotai"
 
 interface IProps {
   tab: TTab
   styles?: React.CSSProperties
 }
-export default function ({ tab, styles }: IProps) {
+export default function ({ tab, styles }: IProps) {  
+  const draftTabs = useAtom(draftTabsStore)
   return (
     <div
       className={clsx(
         "flex gap-1 items-center p-1 rounded-sm bg-white transition-color group",
-        { "hover:bg-blue-50": tab.active === true }
+        { "hover:bg-blue-50": tab.active === true, "hidden": draftTabs.includes(tab.id) }
       )}
       style={styles}>
       <Favicon
@@ -35,6 +37,7 @@ export default function ({ tab, styles }: IProps) {
         {tab.audible && (
           <AiOutlineSound className="inline-block mr-1 text-blue-400 animation-mic" />
         )}
+        <span>{draftTabs.includes(tab.id) ? '已删除': '#'}</span>
         {tab.title}
       </div>
       <TabAction tab={tab} />

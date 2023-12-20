@@ -1,15 +1,15 @@
-import clsx from "clsx"
-import { useAtom } from "jotai"
-import { useState } from "react"
 import { BsMic, BsPin } from "react-icons/bs"
+import { allTabsStore, draftTabsStore } from "~store"
+import { copyTabUrl, openSelectedTabs, reverseTabPinStatus } from "~utils/tabs"
+import { useAtom, useSetAtom } from "jotai"
+
 import { BsMicMute } from "react-icons/bs"
 import { CgCopy } from "react-icons/cg"
 import { IoIosCloseCircleOutline } from "react-icons/io"
-
-import { getI18nByKey } from "~i18n"
-import { allTabsStore } from "~store"
 import type { TTab } from "~types/browser"
-import { copyTabUrl, openSelectedTabs, reverseTabPinStatus } from "~utils/tabs"
+import clsx from "clsx"
+import { getI18nByKey } from "~i18n"
+import { useState } from "react"
 
 interface TabActionProps {
   tab: TTab
@@ -18,9 +18,11 @@ interface TabActionProps {
 
 const TabAction: React.FC<TabActionProps> = ({ tab, isPreview }) => {
   const [, setTabs] = useAtom(allTabsStore)
+  const setDraftTabs = useSetAtom(allTabsStore)
   const onRemoveTab = (tab: TTab) => {
     chrome.tabs.remove(tab.id)
-    setTabs((prev) => prev.filter((t) => t.id !== tab.id))
+    // setTabs((prev) => prev.filter((t) => t.id !== tab.id))
+    setDraftTabs(prev => prev.includes(tab.id) ? prev : [...prev, tab.id])
   }
   const onReverseTabMutStatus = (tab: TTab) => {
     chrome.tabs.update(tab.id, { muted: !tab.mutedInfo.muted })
