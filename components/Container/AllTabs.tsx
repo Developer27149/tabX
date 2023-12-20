@@ -1,11 +1,10 @@
-import { useAtomValue } from "jotai"
-import { useMemo } from "react"
+import { allTabsStore, filterStore } from "~store"
 
 import NotFound from "~components/NotFound"
-import { allTabsStore, filterStore } from "~store"
 import type { TTab } from "~types/browser"
-
 import Tab from "./Tab"
+import { useAtomValue } from "jotai"
+import { useMemo } from "react"
 
 export default function () {
   const allTabs = useAtomValue(allTabsStore)

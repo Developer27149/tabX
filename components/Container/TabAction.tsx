@@ -18,10 +18,9 @@ interface TabActionProps {
 
 const TabAction: React.FC<TabActionProps> = ({ tab, isPreview }) => {
   const [, setTabs] = useAtom(allTabsStore)
-  const setDraftTabs = useSetAtom(allTabsStore)
+  const [draftTabs, setDraftTabs] = useAtom(draftTabsStore)
   const onRemoveTab = (tab: TTab) => {
     chrome.tabs.remove(tab.id)
-    // setTabs((prev) => prev.filter((t) => t.id !== tab.id))
     setDraftTabs(prev => prev.includes(tab.id) ? prev : [...prev, tab.id])
   }
   const onReverseTabMutStatus = (tab: TTab) => {

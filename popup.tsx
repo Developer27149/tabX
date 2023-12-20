@@ -32,7 +32,7 @@ function Content() {
     const [tabs, config] = await Promise.all([
       queryTabs(),
       getAppState(),
-      asyncWait()
+      asyncWait(0)
     ])
     setTabsState(tabs)
     setGlobalConfig(config)
