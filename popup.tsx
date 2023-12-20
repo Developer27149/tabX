@@ -1,20 +1,22 @@
 import "./style.css";
 import "./styles/animation.css";
 
-import { allTabsStore, appPersistentConfig } from "~store"
-import { getAppState, setAppState } from "~utils/storage"
-import toast, { Toaster } from "react-hot-toast"
+
+
+import { useSetAtom } from "jotai";
 import { useEffect, useState } from "react"
+import { ErrorBoundary } from "react-error-boundary"
+import toast, { Toaster } from "react-hot-toast"
 
 import Container from "~components/Container"
-import { ErrorBoundary } from "react-error-boundary"
 import ErrorBoundaryFallback from "~components/ErrorBoundaryFallback"
 import Loading from "~components/Loading"
 import Menu from "~components/Menu"
 import TabQuery from "~components/TabQuery"
-import { asyncWait } from "~utils/common"
+import { allTabsStore, appPersistentConfig } from "~store"
+import { asyncWait, disableContentMenu } from "~utils/common"
+import { getAppState } from "~utils/storage"
 import { queryTabs } from "~utils/tabs"
-import { useSetAtom } from "jotai"
 
 function IndexPopup() {
   return (
@@ -32,7 +34,7 @@ function Content() {
     const [tabs, config] = await Promise.all([
       queryTabs(),
       getAppState(),
-      asyncWait(0)
+      asyncWait()
     ])
     setTabsState(tabs)
     setGlobalConfig(config)
@@ -42,7 +44,7 @@ function Content() {
   useEffect(() => {
     globalThis._toast = toast
     init()
-    // disableContentMenu()
+    disableContentMenu()
   }, [])
 
   if (loading) return <Loading />

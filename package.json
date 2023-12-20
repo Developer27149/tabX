@@ -13,6 +13,7 @@
     "@plasmohq/messaging": "^0.3.3",
     "@radix-ui/react-tooltip": "^1.0.6",
     "clsx": "^2.0.0",
+    "hotkeys-js": "^3.13.3",
     "jotai": "^2.2.3",
     "lodash-es": "^4.17.21",
     "plasmo": "^0.84.0",

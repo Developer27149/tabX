@@ -1,10 +1,12 @@
-import { allTabsStore, filterStore } from "~store"
+import hotkeys from "hotkeys-js";
+import { useAtomValue } from "jotai"
+import { useEffect, useMemo, useRef, useState } from "react"
 
 import NotFound from "~components/NotFound"
+import { allTabsStore, filterStore } from "~store"
 import type { TTab } from "~types/browser"
+
 import Tab from "./Tab"
-import { useAtomValue } from "jotai"
-import { useMemo } from "react"
 
 export default function () {
   const allTabs = useAtomValue(allTabsStore)
@@ -55,13 +57,81 @@ export default function () {
         return filter.isAudible ? tab.audible : true
       })
   }
-
+  const currentTabId = useRef<number>()
   const tabList = useMemo(() => filterTabs(allTabs), [allTabs, filter])
+  const hadInit = useRef(false)
+  useEffect(() => {
+    if (hadInit.current === false) {
+      hadInit.current = true
+      hotkeys("j", (event) => {
+        const activeTab = document.querySelector(".tab.bg-blue-light")
+        if (activeTab) {
+          // remove it's active class, set to it's next sibling
+          activeTab.classList.remove("bg-blue-light")
+          const nextTab = activeTab.nextElementSibling as HTMLElement
+          if (nextTab && nextTab.classList.contains("tab")) {
+            nextTab.classList.add("bg-blue-light")
+            currentTabId.current = +nextTab.dataset.id
+          } else {
+            currentTabId.current = undefined
+          }
+        } else {
+          const firstTab: HTMLElement = document.querySelector(".tab")
+          if (firstTab) {
+            firstTab.classList.add("bg-blue-light")
+            currentTabId.current = +firstTab.dataset.id
+          } else {
+            currentTabId.current = undefined
+          }
+        }
+      })
+      hotkeys("k", () => {
+        const activeTab = document.querySelector(".tab.bg-blue-light")
+        if (activeTab) {
+          // remove it's active class, set to it's next sibling
+          activeTab.classList.remove("bg-blue-light")
+          const prevTab = activeTab.previousElementSibling as HTMLElement
+          if (prevTab && prevTab.classList.contains("tab")) {
+            prevTab.classList.add("bg-blue-light")
+            currentTabId.current = +prevTab.dataset.id
+          } else {
+            currentTabId.current = undefined
+          }
+        } else {
+          const lastTab: HTMLElement = document.querySelector(".tab:last-child")
+          if (lastTab) {
+            lastTab.classList.add("bg-blue-light")
+            currentTabId.current = +lastTab.dataset.id
+          } else {
+            currentTabId.current = undefined
+          }
+        }
+      })
+    }
+    return () => {
+      hotkeys.unbind("j")
+      hotkeys.unbind("k")
+    }
+  }, [filter])
 
   return (
-    <div className="h-full overflow-y-auto pb-32">
+    <div className="h-full overflow-y-auto pb-32 outline-none">
       {tabList.map((tab) => (
-        <Tab key={tab.id} tab={tab} />
+        <Tab
+          key={tab.id}
+          tab={tab}
+          onMouseEnter={(e) => {
+            const prevElem = document.querySelector(".tab.bg-blue-light")
+            prevElem?.classList.remove("bg-blue-light")
+            e.currentTarget.classList.add("bg-blue-light")
+            currentTabId.current = tab.id
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.classList.remove("bg-blue-light")
+            currentTabId.current = undefined
+          }}
+          data-id={tab.id}
+        />
       ))}
       {tabList.length === 0 && filter.query.trim() !== "" && (
         <NotFound

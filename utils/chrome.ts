@@ -1,4 +1,4 @@
-import { EArea,type IWindowsData } from "~types/browser"
+import { EArea, type IWindowsData } from "~types/browser"
 
 import { EStorageKey, getFromStorage, saveToStorage } from "./storage"
 
@@ -31,4 +31,8 @@ export const closeWindowById = async (windowId: number) => {
   const windowCache = await getWindows()
   const newWindowCache = windowCache.filter((item) => item.id !== windowId)
   saveWindows(newWindowCache)
+}
+
+export const onFocusWindowById = (id: number) => {
+  chrome.windows.update(id, { focused: true })
 }

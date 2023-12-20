@@ -1,35 +1,28 @@
-import clsx from "clsx";
-import { useAtomValue } from "jotai";
-import { AiOutlineSound } from "react-icons/ai";
-import { GiNightSleep } from "react-icons/gi";
+import clsx from "clsx"
+import { useAtomValue } from "jotai"
+import { AiOutlineSound } from "react-icons/ai"
+import { GiNightSleep } from "react-icons/gi"
 
+import Favicon from "~components/Favicon"
+import { draftTabsStore } from "~store"
+import type { TTab } from "~types/browser"
+import { openSelectedTabs } from "~utils/tabs"
 
+import TabAction from "./TabAction"
 
-import Favicon from "~components/Favicon";
-import { draftTabsStore } from "~store";
-import type { TTab } from "~types/browser";
-import { openSelectedTabs } from "~utils/tabs";
-
-
-
-import TabAction from "./TabAction";
-
-
-
-
-
-interface IProps {
+interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   tab: TTab
   styles?: React.CSSProperties
 }
-export default function ({ tab, styles }: IProps) {
+export default function ({ tab, styles, ...props }: IProps) {
   const draftTabs = useAtomValue(draftTabsStore)
   return (
     <div
+      {...props}
       className={clsx(
-        "flex gap-1 items-center p-1 rounded-sm bg-white transition-color group",
+        "flex gap-1 items-center p-1 rounded-sm bg-white transition-color group tab",
         {
-          "hover:bg-blue-50": tab.active === true,
+          "hover:bg-blue-50": true,
           hidden: draftTabs.includes(tab.id)
         }
       )}

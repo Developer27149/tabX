@@ -13,6 +13,7 @@ export const draftTabsStore = atom<number[]>([])
 
 export const defaultFilter = {
   query: "", // 搜索
-  isAudible: false // 有声音
+  isAudible: false, // 有声音
+  isFocusedSearch: true // 聚焦
 }
 export const filterStore = atom(defaultFilter)

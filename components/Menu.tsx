@@ -1,5 +1,6 @@
 import clsx from "clsx"
 import { useAtom, useSetAtom } from "jotai"
+import { cloneDeep } from "lodash-es"
 import { AiOutlineAudio } from "react-icons/ai"
 import { BiLogoGithub } from "react-icons/bi"
 import { BsCollection } from "react-icons/bs"
@@ -14,7 +15,13 @@ import { TbWorldWww } from "react-icons/tb"
 import { VscMultipleWindows } from "react-icons/vsc"
 
 import { getI18nByKey, i18n } from "~i18n"
-import { allTabsStore, appPersistentConfig, draftTabsStore } from "~store"
+import {
+  allTabsStore,
+  appPersistentConfig,
+  defaultFilter,
+  draftTabsStore,
+  filterStore
+} from "~store"
 import { EI18nLanguage } from "~types/browser"
 import { EMenuId } from "~types/menu"
 import { setAppState } from "~utils/storage"
@@ -26,6 +33,7 @@ export default function Menu() {
   const [config, setConfig] = useAtom(appPersistentConfig)
   const setAllTabs = useSetAtom(allTabsStore)
   const setDraftTabs = useSetAtom(draftTabsStore)
+  const setFilter = useSetAtom(filterStore)
 
   const onChangeLanguage = () => {
     setConfig((i) => {
@@ -106,6 +114,7 @@ export default function Menu() {
                 const newConfig = { ...i, menuId: id }
                 setAppState(newConfig)
                 setDraftTabs([])
+                setFilter(cloneDeep(defaultFilter))
                 onRefresh()
                 return newConfig
               })

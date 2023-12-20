@@ -8,6 +8,9 @@
   .text-blue {
     color: #24276f;
   }
+  .bg-blue-light {
+    background-color: #f0f6fe!important;
+  }
 }
 
 /* Works on Chrome, Edge, and Safari */
@@ -25,3 +28,6 @@
   border: 3px solid transparent;
 }
 
+div:focus {
+  outline: none;
+}
