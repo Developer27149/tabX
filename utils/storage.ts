@@ -1,8 +1,7 @@
-import { getI18nByKey } from "~i18n"
-import type { IAppState } from "~types/appState"
 import { EArea, EI18nLanguage } from "~types/browser"
 import { EMenuId } from "~types/menu"
 
+import type { IAppState } from "~types/appState"
 import { errorMessage } from "./common"
 
 export enum EStorageKey {
@@ -35,7 +34,6 @@ export const setAppState = async (value: IAppState) => {
     console.log("repeat save app config...")
     await saveToStorage(EStorageKey.appState, value)
   } catch (error) {
-    errorMessage(getI18nByKey("saveStateFailed"))
     console.log(error)
   }
 }
@@ -43,7 +41,7 @@ export const setAppState = async (value: IAppState) => {
 // 持久化的设置
 export const getAppState = async (): Promise<IAppState> => {
   try {
-    const result = await getFromStorage(EStorageKey.appState)
+    const result = (await getFromStorage(EStorageKey.appState)) ?? {}
     if (result["language"] === undefined) {
       result["language"] = EI18nLanguage["zh-CN"]
     }
@@ -51,9 +49,8 @@ export const getAppState = async (): Promise<IAppState> => {
       result["menuId"] = EMenuId.all
     }
     console.log("result", result)
-    return result ?? {}
+    return result
   } catch (error) {
-    errorMessage(getI18nByKey("getStateFailed"))
     console.log(error)
   }
 }
@@ -63,7 +60,6 @@ export const getCustomTabs = async (): Promise<chrome.tabs.Tab[]> => {
     const tabs = await getFromStorage(EStorageKey["customTabs"], EArea.local)
     return tabs
   } catch (error) {
-    errorMessage(getI18nByKey("getStateFailed"))
     console.log(error)
   }
 }

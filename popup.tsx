@@ -1,22 +1,20 @@
 import "./style.css";
 import "./styles/animation.css";
 
-
-
-import { useSetAtom } from "jotai"
-import { useEffect, useState } from "react"
-import { ErrorBoundary } from "react-error-boundary"
+import { allTabsStore, appPersistentConfig } from "~store"
+import { getAppState, setAppState } from "~utils/storage"
 import toast, { Toaster } from "react-hot-toast"
+import { useEffect, useState } from "react"
 
 import Container from "~components/Container"
+import { ErrorBoundary } from "react-error-boundary"
 import ErrorBoundaryFallback from "~components/ErrorBoundaryFallback"
 import Loading from "~components/Loading"
 import Menu from "~components/Menu"
 import TabQuery from "~components/TabQuery"
-import { allTabsStore, appPersistentConfig } from "~store"
 import { asyncWait } from "~utils/common"
-import { getAppState, setAppState } from "~utils/storage"
 import { queryTabs } from "~utils/tabs"
+import { useSetAtom } from "jotai"
 
 function IndexPopup() {
   return (
@@ -34,7 +32,7 @@ function Content() {
     const [tabs, config] = await Promise.all([
       queryTabs(),
       getAppState(),
-      asyncWait(0)
+      asyncWait()
     ])
     setTabsState(tabs)
     setGlobalConfig(config)
