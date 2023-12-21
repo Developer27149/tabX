@@ -25,3 +25,18 @@
 .animation-mic {
   animation: mic 0.5s infinite;
 }
+
+
+@keyframes switch-scene {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+.scene {
+  animation: switch-scene 0.4s ease-out forwards;
+}

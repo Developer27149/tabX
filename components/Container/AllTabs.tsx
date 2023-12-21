@@ -1,9 +1,9 @@
+import NotFound from "~components/NotFound"
+import { allTabsStore, filterStore } from "~store"
 import hotkeys from "hotkeys-js";
 import { useAtomValue } from "jotai"
 import { useEffect, useMemo, useRef, useState } from "react"
 
-import NotFound from "~components/NotFound"
-import { allTabsStore, filterStore } from "~store"
 import type { TTab } from "~types/browser"
 
 import Tab from "./Tab"
@@ -115,7 +115,7 @@ export default function () {
   }, [filter])
 
   return (
-    <div className="h-full overflow-y-auto pb-32 outline-none">
+    <div className="h-full overflow-y-auto pb-32 outline-none scene">
       {tabList.map((tab) => (
         <Tab
           key={tab.id}

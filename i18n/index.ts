@@ -1,6 +1,5 @@
-import { useAtomValue } from "jotai"
-
 import { appPersistentConfig } from "~store"
+import { useAtomValue } from "jotai"
 
 export const i18n = {
   "zh-CN": {
@@ -30,7 +29,8 @@ export const i18n = {
     menuGroup: "分组",
     menuUnread: "未读",
     errorTips: "发生了神秘的错误 😭",
-    notFound: "什么都没找到..."
+    notFound: "什么都没找到...",
+    menuTools: "工具箱",
   },
   en: {
     search: "Search",
@@ -59,7 +59,8 @@ export const i18n = {
     menuGroup: "Group",
     menuUnread: "Unread",
     errorTips: "Oh shit.Something went wrong 😭",
-    notFound: "Oh, nothing was found..."
+    notFound: "Oh, nothing was found...",
+    menuTools: "Tools"
   }
 }
 

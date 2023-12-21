@@ -7,5 +7,5 @@ export enum EMenuId {
   unread = "unread",
   windows = "windows",
   status = "status",
-  analysis = "analysis"
+  tools = "tools",
 }

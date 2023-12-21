@@ -1,20 +1,20 @@
-import clsx from "clsx"
 import { useAtom, useSetAtom } from "jotai"
 import { useEffect, useMemo, useState } from "react"
+
 import { AiOutlineEnter } from "react-icons/ai"
+import AllTabs from "./AllTabs"
 import { FaArrowRight } from "react-icons/fa"
 import { IoIosClose } from "react-icons/io"
+import NotFound from "~components/NotFound"
 import { SlSizeActual } from "react-icons/sl"
 import { SlSizeFullscreen } from "react-icons/sl"
+import { TChromeGroup } from "~types/common"
+import Tab from "./Tab"
 import { TbClearAll } from "react-icons/tb"
-
 import Tooltip from "~components/Tooltip"
 import { allTabsStore } from "~store"
-import { TChromeGroup } from "~types/common"
+import clsx from "clsx"
 import { generateGroupListByTabs } from "~utils/groups"
-
-import AllTabs from "./AllTabs"
-import Tab from "./Tab"
 
 export default function () {
   const [allTabs, setAllTabs] = useAtom(allTabsStore)
@@ -134,7 +134,7 @@ export default function () {
         })}
       </div>
 
-      {currentGroup && (
+      {currentGroup ? (
         <div className="mt-4">
           <div className="group flex gap-4 items-center bg-gray-50 rounded-md p-2">
             <div className="truncate max-w-[400px] flex gap-2 items-center cursor-pointer text-blue-500">
@@ -194,6 +194,10 @@ export default function () {
             </div>
           }
         </div>
+      ): (
+        <NotFound tip="您还没有分组 喵~" style={{
+          marginTop: '80px'
+        }}/>
       )}
     </div>
   )

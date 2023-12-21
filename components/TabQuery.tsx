@@ -1,12 +1,12 @@
-import clsx from "clsx"
-import { useAtom, useAtomValue } from "jotai"
 import { ChangeEvent, useMemo } from "react"
-import { AiOutlineSound } from "react-icons/ai"
-import { TfiSearch } from "react-icons/tfi"
-
-import { getI18nByKey } from "~i18n"
 import { appPersistentConfig, defaultFilter, filterStore } from "~store"
+import { useAtom, useAtomValue } from "jotai"
+
+import { AiOutlineSound } from "react-icons/ai"
 import { EMenuId } from "~types/menu"
+import { TfiSearch } from "react-icons/tfi"
+import clsx from "clsx"
+import { getI18nByKey } from "~i18n"
 
 export default function () {
   const config = useAtomValue(appPersistentConfig)
@@ -27,7 +27,7 @@ export default function () {
   return (
     <div
       className={clsx(
-        "sticky top-0 left-0right-0 flex items-center w-full p-4 bg-white z-10",
+        "sticky top-0 left-0right-0 flex items-center w-full p-4 bg-white z-10 shadow",
         {
           hidden: hiddenSelf
         }

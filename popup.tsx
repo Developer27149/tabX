@@ -44,7 +44,7 @@ function Content() {
   useEffect(() => {
     globalThis._toast = toast
     init()
-    disableContentMenu()
+    // disableContentMenu()
   }, [])
 
   if (loading) return <Loading />

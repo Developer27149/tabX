@@ -1,9 +1,18 @@
-import clsx from "clsx"
+import {
+  allTabsStore,
+  appPersistentConfig,
+  defaultFilter,
+  draftTabsStore,
+  filterStore
+} from "~store"
+import { getI18nByKey, i18n } from "~i18n"
 import { useAtom, useSetAtom } from "jotai"
-import { cloneDeep } from "lodash-es"
+
 import { AiOutlineAudio } from "react-icons/ai"
 import { BiLogoGithub } from "react-icons/bi"
 import { BsCollection } from "react-icons/bs"
+import { EI18nLanguage } from "~types/browser"
+import { EMenuId } from "~types/menu"
 import { GoTasklist } from "react-icons/go"
 import { HiOutlineLanguage } from "react-icons/hi2"
 import { HiOutlineRectangleGroup } from "react-icons/hi2"
@@ -12,22 +21,13 @@ import { MdMultipleStop } from "react-icons/md"
 import { PiTwitterLogoThin } from "react-icons/pi"
 import { TbRobot } from "react-icons/tb"
 import { TbWorldWww } from "react-icons/tb"
-import { VscMultipleWindows } from "react-icons/vsc"
-
-import { getI18nByKey, i18n } from "~i18n"
-import {
-  allTabsStore,
-  appPersistentConfig,
-  defaultFilter,
-  draftTabsStore,
-  filterStore
-} from "~store"
-import { EI18nLanguage } from "~types/browser"
-import { EMenuId } from "~types/menu"
-import { setAppState } from "~utils/storage"
-import { queryTabs } from "~utils/tabs"
-
 import Tooltip from "./Tooltip"
+import { VscMultipleWindows } from "react-icons/vsc"
+import { VscTools } from "react-icons/vsc";
+import { cloneDeep } from "lodash-es"
+import clsx from "clsx"
+import { queryTabs } from "~utils/tabs"
+import { setAppState } from "~utils/storage"
 
 export default function Menu() {
   const [config, setConfig] = useAtom(appPersistentConfig)
@@ -71,6 +71,11 @@ export default function Menu() {
       intro: getI18nByKey("menuWindow"),
       icon: <VscMultipleWindows />,
       id: EMenuId.windows
+    },
+    {
+      intro: getI18nByKey("menuTools"),
+      icon: <VscTools />,
+      id: EMenuId.tools
     }
     // {
     //   intro: getI18nByKey("menuUnread"),
@@ -100,9 +105,9 @@ export default function Menu() {
     // }
   ]
   return (
-    <div className="flex flex-col p-2 bg-gray-100 py-4 pt-3 gap-2 min-w-[44px] max-w-[44px]">
+    <div className="flex flex-col p-2 bg-gray-100 py-4 pt-3 gap-3 min-w-[56px] max-w-[56px]">
       {groupType.map(({ intro, icon, id }) => (
-        <Tooltip key={id} intro={intro}>
+        <div className="flex flex-col items-center justify-center" key={id}>
           <div
             style={{
               color: config.menuId === id ? "#fff" : "#2463eb",
@@ -120,11 +125,14 @@ export default function Menu() {
               })
             }}
             className={clsx(
-              "cursor-pointer p-1 bg-blue-50 rounded-sm text-[20px] hover:scale-105 transform transition-all flex justify-center"
+              "cursor-pointer p-1 bg-blue-50 rounded-sm text-[24px] hover:scale-105 transform transition-all flex justify-center"
             )}>
             {icon}
           </div>
-        </Tooltip>
+          <div className={clsx("text-[12px] text-center transform", {
+            'opacity-50': id !== config.menuId
+          })}>{intro}</div>
+        </div>
       ))}
       <div className="mt-auto text-blue">
         <IoIosRefresh

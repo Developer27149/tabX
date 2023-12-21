@@ -7,7 +7,8 @@ export enum EMenuTip {
   "analysis" = "访问分析",
   "group" = "分组",
   "robot" = "AI 辅助",
-  "unread" = "未读"
+  "unread" = "未读",
+  "tools" = "工具箱",
 }
 
 export type TMenuId = keyof typeof EMenuTip
