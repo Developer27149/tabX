@@ -78,5 +78,9 @@ export default function () {
     // [EMenuId.unread]: <AllTabs tabs={resortTabs} />,
   }
 
-  return <div className="p-2">{tabComponentMap[config.menuId]}</div>
+  return (
+    <div className="p-2 outline-none border-none">
+      {tabComponentMap[config.menuId]}
+    </div>
+  )
 }

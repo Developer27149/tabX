@@ -1,69 +1,67 @@
+import clsx from "clsx";
+import { useAtom } from "jotai"
+import { useState } from "react"
 import { BsMic, BsPin } from "react-icons/bs"
-import { allTabsStore, draftTabsStore } from "~store"
-import { copyTabUrl, openSelectedTabs, reverseTabPinStatus } from "~utils/tabs"
-import { useAtom, useSetAtom } from "jotai"
-
 import { BsMicMute } from "react-icons/bs"
 import { CgCopy } from "react-icons/cg"
 import { IoIosCloseCircleOutline } from "react-icons/io"
-import type { TTab } from "~types/browser"
-import clsx from "clsx"
+
 import { getI18nByKey } from "~i18n"
-import { useState } from "react"
+import { draftTabsStore } from "~store"
+import type { TTab } from "~types/browser"
+import { copyTabUrl, reverseTabPinStatus } from "~utils/tabs"
 
 interface TabActionProps {
   tab: TTab
-  isPreview?: boolean
 }
 
-const TabAction: React.FC<TabActionProps> = ({ tab, isPreview }) => {
-  const [, setTabs] = useAtom(allTabsStore)
-  const [draftTabs, setDraftTabs] = useAtom(draftTabsStore)
-  const onRemoveTab = (tab: TTab) => {
-    chrome.tabs.remove(tab.id)
-    setDraftTabs(prev => prev.includes(tab.id) ? prev : [...prev, tab.id])
+const TabAction: React.FC<TabActionProps> = ({ tab }) => {
+  const [currentTab, setCurrentTab] = useState<TTab>(tab)
+  const [, setDraftTabs] = useAtom(draftTabsStore)
+  const onRemoveTab = () => {
+    chrome.tabs.remove(currentTab.id)
+    setDraftTabs((prev) =>
+      prev.includes(currentTab.id) ? prev : [...prev, currentTab.id]
+    )
   }
-  const onReverseTabMutStatus = (tab: TTab) => {
-    chrome.tabs.update(tab.id, { muted: !tab.mutedInfo.muted })
-    setTabs((prev) => {
-      return prev.map((t) => {
-        if (t.id === tab.id) {
-          return { ...t, mutedInfo: { muted: !t.mutedInfo.muted } }
-        }
-        return t
-      })
-    })
+  const onReverseTabMutStatus = () => {
+    chrome.tabs.update(currentTab.id, { muted: !currentTab.mutedInfo.muted })
+    setCurrentTab((prev) => ({
+      ...prev,
+      mutedInfo: { muted: !prev.mutedInfo.muted }
+    }))
   }
   const successMessage = getI18nByKey("copySuccess")
-  const [isPin, setIsPin] = useState<boolean>(tab.pinned)
   return (
     <div
-      className={clsx("p-1 flex items-center gap-2 text-blue-400 select-none", {
-        "bg-gray-100 bg-opacity-0 group-hover:bg-opacity-100": isPreview,
-        "ml-auto": !isPreview
-      })}>
+      className={clsx(
+        "p-1 flex items-center gap-2 text-blue-400 select-none ml-auto"
+      )}>
       <button
         className="opacity-0 text-[15px]  group-hover:opacity-100"
-        onClick={() => copyTabUrl(tab, successMessage)}>
+        onClick={() => copyTabUrl(currentTab, successMessage)}>
         <CgCopy />
       </button>
       <button
         className="opacity-0 text-[15px]  group-hover:opacity-100"
-        onClick={() => onReverseTabMutStatus(tab)}>
-        {tab.mutedInfo.muted ? <BsMic /> : <BsMicMute />}
+        onClick={() => onReverseTabMutStatus()}>
+        {currentTab.mutedInfo.muted ? <BsMic /> : <BsMicMute />}
       </button>
       <button
         className="opacity-0 text-[15px]  group-hover:opacity-100"
         onClick={() => {
-          reverseTabPinStatus(tab.id, isPin)
-          setIsPin(!isPin)
+          reverseTabPinStatus(currentTab.id, currentTab.pinned)
         }}>
-        {isPin ? <BsPin className="transform rotate-12" /> : <BsPin />}
+        {currentTab.pinned ? (
+          <BsPin className="transform rotate-12" />
+        ) : (
+          <BsPin />
+        )}
       </button>
 
       <button
         className="opacity-0 text-[15px]  group-hover:opacity-100"
-        onClick={() => onRemoveTab(tab)}>
+        onClick={onRemoveTab}>
         <IoIosCloseCircleOutline />
       </button>
     </div>

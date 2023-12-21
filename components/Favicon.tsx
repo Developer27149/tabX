@@ -13,7 +13,8 @@ export default function ({ styles, url, onClick }: IProps) {
       className="inline-block p-1 rounded-sm bg-white relative"
       onClick={onClick}
       style={{
-        maxHeight: "32px"
+        minHeight: "32px",
+        minWidth: "32px",
       }}>
       <img
         src={getFavicon(url)}

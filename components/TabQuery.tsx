@@ -8,8 +8,6 @@ import { getI18nByKey } from "~i18n"
 import { appPersistentConfig, defaultFilter, filterStore } from "~store"
 import { EMenuId } from "~types/menu"
 
-import { IconSetting } from "./Icons"
-
 export default function () {
   const config = useAtomValue(appPersistentConfig)
   const [filter, setFilter] = useAtom(filterStore)
@@ -19,7 +17,7 @@ export default function () {
       query: e.target.value
     })
   }
-  const showSearchOptions = [EMenuId.all]
+  const showSearchOptions = [EMenuId.all, EMenuId.windows]
 
   const hiddenSelf = useMemo(
     () => !showSearchOptions.includes(config.menuId),
@@ -29,7 +27,7 @@ export default function () {
   return (
     <div
       className={clsx(
-        "sticky top-0 left-0right-0 flex items-center w-full p-2 bg-white z-10",
+        "sticky top-0 left-0right-0 flex items-center w-full p-4 bg-white z-10",
         {
           hidden: hiddenSelf
         }
@@ -40,8 +38,14 @@ export default function () {
         value={filter.query}
         onChange={onChange}
         autoFocus
+        onFocus={() =>
+          setFilter((prev) => ({ ...prev, isFocusedSearch: true }))
+        }
+        onBlur={() =>
+          setFilter((prev) => ({ ...prev, isFocusedSearch: false }))
+        }
       />
-      <button className="relative flex items-center justify-center right-5">
+      <button className="relative flex items-center justify-center right-5 select-none outline-none">
         <TfiSearch />
       </button>
       <div className="ml-auto text-blue flex gap-1 cursor-pointer">
