@@ -135,7 +135,7 @@ export default function () {
       </div>
 
       {currentGroup ? (
-        <div className="mt-4">
+        <div className="mt-4 scene">
           <div className="group flex gap-4 items-center bg-gray-50 rounded-md p-2">
             <div className="truncate max-w-[400px] flex gap-2 items-center cursor-pointer text-blue-500">
               <FaArrowRight onClick={onFocusGroupWindow} />

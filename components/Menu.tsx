@@ -105,13 +105,15 @@ export default function Menu() {
     // }
   ]
   return (
-    <div className="flex flex-col p-2 bg-gray-100 py-4 pt-3 gap-3 min-w-[56px] max-w-[56px]">
+    <div className="flex flex-col p-2 py-4 pt-3 gap-3 min-w-[56px] max-w-[56px]"  style={{
+      borderRight: '1px solid #348ac720'
+    }}>
       {groupType.map(({ intro, icon, id }) => (
         <div className="flex flex-col items-center justify-center" key={id}>
           <div
             style={{
               color: config.menuId === id ? "#fff" : "#2463eb",
-              opacity: config.menuId === id ? 1 : 0.8,
+              // opacity: config.menuId === id ? 1 : 0.8,
               background: config.menuId === id ? "var(--p-color)" : "white"
             }}
             onClick={() => {
@@ -125,13 +127,13 @@ export default function Menu() {
               })
             }}
             className={clsx(
-              "cursor-pointer p-1 bg-blue-50 rounded-sm text-[24px] hover:scale-105 transform transition-all flex justify-center"
+              "cursor-pointer p-1 rounded-sm text-[24px] hover:scale-105 transform transition-all flex justify-center"
             )}>
             {icon}
           </div>
-          <div className={clsx("text-[12px] text-center transform", {
+          {/* <div className={clsx("text-[12px] text-center transform", {
             'opacity-50': id !== config.menuId
-          })}>{intro}</div>
+          })}>{intro}</div> */}
         </div>
       ))}
       <div className="mt-auto text-blue">

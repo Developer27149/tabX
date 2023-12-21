@@ -3,7 +3,7 @@ import "./styles/animation.css";
 
 
 
-import { useSetAtom } from "jotai";
+import { useSetAtom } from "jotai"
 import { useEffect, useState } from "react"
 import { ErrorBoundary } from "react-error-boundary"
 import toast, { Toaster } from "react-hot-toast"
@@ -34,7 +34,7 @@ function Content() {
     const [tabs, config] = await Promise.all([
       queryTabs(),
       getAppState(),
-      asyncWait()
+      asyncWait(0)
     ])
     setTabsState(tabs)
     setGlobalConfig(config)
