@@ -1,81 +1,113 @@
-# tabX
+<div align="center">
+  <img src="./img/icon.png" width=50px height=50px>
+  <h1>Phew AI Tab</h1>
+  The Best AI-Based Tabs Management Extension<br/>
+  <a href="">
+      </a>
+      <img alt="Chrome Extensions" src="https://img.shields.io/badge/Chrome%20Extensions-supported-brightgreen.svg">
+      <img alt="GitHub tag (with filter)" src="https://img.shields.io/github/v/tag/augusdin/Phew-Tab">
+      <img alt="OpenAI" src="https://img.shields.io/badge/OpenAI-used-brightgreen.svg">
 
-这是一个 [Plasmo 扩展插件](https://docs.plasmo.com/) 项目,使用 [`plasmo init`](https://www.npmjs.com/package/plasmo) 脚手架生成。
+  <br/>
+  <video width="600" height="393" src="https://github.com/augusdin/Phew-Tab/assets/129820382/fbd1bebc-781e-4923-b3d0-a1b5c4a0105a"></video>
+</div>
 
-A amazing chrome extension for manage all tabs
+## Table of Contents
 
-## 开始
+- [Intro](#intro)
+- [Installation](#installation)
+  - [Join the Discord community](#join_discord)
+  - [Join the WeChat group](#join_wechat_group)
+- [Install Chrome Extension Tutorial](#Tutorial)
 
-首先,运行开发服务器:
+## Intro <a name="intro"></a>
 
-```
-copy codepnpm dev
-# 或
-npm run dev
-```
+"Finally, those hair-raising tabs are now neatly organized, Phew~" they often say.
 
-打开浏览器访问相应的开发版本。例如,如果你正在为 Chrome 浏览器开发基于manifest v3 的插件,使用:`build/chrome-mv3-dev`。
+Phew AI Tab is a browser extension that helps you manage a large number of tabs easily and effectively with AI, presenting and managing them in a vertical layout.
 
-你可以修改 `popup.tsx` 来编辑弹出窗口。代码修改后会自动更新。要添加选项页面,只需在项目根目录添加 `options.tsx` 文件,默认导出一个 React 组件即可。同样地,要添加内容页,只需在项目根目录添加 `content.ts` 文件,导入一些模块并进行一些逻辑,然后重新加载扩展。
+## Installation <a name="installation"></a>
 
-如需详细指南,[参考我们的文档](https://docs.plasmo.com/)。
+Phew AI Tab is now open for beta testing, and you are invited to join right now.
 
-## 打包发布版本
+Although the extension has been submitted to the Chrome Web Store, you will still need to manually download and install it from the Release before it is approved.
 
-运行:
+**Download the Latest Version of Phew AI Tab Immediately:**
+[Phew AI Tab Latest Version](https://github.com/augusdin/phew-tab/releases/latest)
 
-```
-copy codepnpm build 
-# 或 
-npm run build
-```
+Need help installing? [Here's a quick tutorial](#Tutorial)
 
-这会生成你的扩展的生产版本,准备好打包和发布到商店。
+As a beta tester, you'll enjoy these two perks during the testing period:
 
+1. Your Phew AI Tab Pro Version Code
+2. A Free OpenAI API Key
+<br/>(Join our community and get your rewards)
 
+And there's more:
+Join our beta discussion group to help shape Phew AI Tab's future.
 
-## 提交到商店
+**Prefer Discord?**<a name="join_discord"></a><br/>
+[Join here](https://discord.gg/yHrws38W)
 
-使用内置的 [bpp](https://bpp.browser.market/) Github 动作部署 Plasmo 扩展非常方便。在使用此操作之前,请首先构建你的扩展并上传第一版到商店以建立基本凭据。然后,只需遵循[此设置说明](https://docs.plasmo.com/framework/workflows/submit),你就可以启动自动提交!
+**More of a WeChat person?**<a name="join_wechat_group"></a><br/>
+Scan the attached QR code to join our group:
+<br/>
+<img width="300" src="./img/beta_test.jpg" />
+### Install Chrome Extension Tutorial <a name="tutorial"></a>
 
-## 基础功能
-- [x] 全局标签搜索
-- [x] 单标签操作：打开、关闭、复制链接、固定和取消固定和更多操作
-- [x] 分组管理
-- [x] 常用工具：AI 分组、重复项清理
-- [x] 稍后阅读标签
+Step 1: Download the Extension
 
+First, download the latest installation package phew-tab_xxx.zip from Releases.
 
-## 需求补充
-- [ ] 重复页面查找
-- [ ] 固定页面查找
-- [ ] 页面恢复
-- [ ] i18n
-- [ ] 键盘操作(Quick Delete、Open)
-- [ ] 分组颜色
-- [ ] 工作区: 保存用户工作区，做云同步(tab添加到工作区)，快速恢复
-- [ ] 配置导出导入
-- [ ] 复制、隐私模式转换
-- [ ] 分组、窗口、移动
-- [ ] 撤销上一次关闭
-- [ ] 选项卡音频指示
-- [ ] 静音和开启声音
-- [ ] 窗口合并
-- [ ] 保存到书签
-- [ ] 页面标签，标签筛选
-- [ ] 去重当前打开页面的历史页面恢复
-- [ ] 常见功能
-  - 打开上次关闭的 tab
-  - 恢复上次关闭的 window
-  - 打开新页面（普通 or 隐私）
+Step 2: Open Chrome Extensions Page
 
-## Pro
-- [ ] 云同步
-- [ ] 支持多商店
-- [ ] Dark or light
+Open the Google Chrome browser.
+Type chrome://extensions/ in the address bar and hit Enter.
 
+Step 3: Enable Developer Mode
 
-## 注意避免的点
-- 避免花哨，打断用户注意力
-- 不把用户的傻子，操作极简化即可
-- 添加关于作者，建议用户支持和留下交流方式
+On the Extensions page, find and enable the “Developer mode” toggle switch at the top-right corner.
+
+1,Direct Drag-and-Drop Method:
+
+Simply drag the phew-tab_xxx.zip file from its download location and drop it directly onto the Extensions page.
+
+2, Unzip and Load Method:
+
+If the direct method doesn’t work, unzip the phew-tab_xxx.zip file by right-clicking it and selecting “Extract All…”.
+
+Back on the Extensions page in Chrome, click the “Load unpacked” button.
+
+Navigate to and select the folder where you extracted the ZIP file.
+
+Final Steps:
+
+The phew-tab extension should now be visible in your Chrome extensions list.
+
+## Chrome扩展安装步骤
+
+第 1 步：下载扩展
+
+首先，从Releases 下载最新安装包 phew-tab_xxx.zip
+
+第 2 步：打开 Chrome 扩展页面
+
+打开 Google Chrome 浏览器。
+在地址栏输入 chrome://extensions/，然后按 Enter 键。
+
+第 3 步：启用开发者模式
+
+在扩展页面的右上角找到并启用“开发者模式”切换开关。
+直接拖放方法：
+
+直接将 phew-tab_xxx.zip 压缩包从其下载位置拖动并放到扩展页面上。
+
+解压并加载方法：
+
+如果直接方法不起作用，右键点击 phew-tab_xxx.zip 文件，选择“全部解压...”进行解压。
+
+回到 Chrome 的扩展页面，点击“加载已解压的扩展”按钮。
+导航至并选择你解压 ZIP 文件的文件夹。
+
+phew-tab 扩展现在应该在你的 Chrome 扩展列表中可见。
+
